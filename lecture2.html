@@ -2,7 +2,9 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="lec" content="2">
+<meta name="theme-color" content="#0f766e">
 <title>التحليل الكيميائي - الباب الثاني - المحاضرة الثانية</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -627,12 +629,161 @@ body.light .quiz-slide .qt,body.light .qt{color:#0b2540}
 .fit{transform-origin:top center}
 
 </style>
+<style id="rsp">
+/* =====================================================================
+   RSP v1 — responsive layer + overlap fixes (loaded last on purpose)
+   Modes (set by JS on <html>):
+     (none)  = "stage": 16:9 slide scaled to fit (laptops, desktops, tablets landscape)
+     .rf     = "reflow": slide re-laid-out at a virtual width and scrolled (phones, tablets portrait)
+     .rf1    = reflow + single column (narrow phones)
+   ===================================================================== */
+:root{--hudh:54px;--z:1;--cardbg:rgba(255,255,255,.08)}
+body.light{--cardbg:#fff}
+html,body{overscroll-behavior:none}
+body{touch-action:manipulation}
+body.light{background:#e9eff6}
+#rot{display:none!important}
+
+/* ---------- chrome (progress, hint, bar, menu) lives OUTSIDE the stage ---------- */
+.prog{position:fixed;top:0;right:0;left:auto;z-index:90;height:5px}
+.hud{position:fixed;left:0;right:0;bottom:0;top:auto;z-index:70;display:flex;align-items:center;justify-content:flex-start;gap:14px;
+  height:calc(var(--hudh) + env(safe-area-inset-bottom,0px));padding:0 max(14px,env(safe-area-inset-right,0px)) env(safe-area-inset-bottom,0px) max(14px,env(safe-area-inset-left,0px));
+  background:rgba(4,16,31,.92);border-top:1px solid rgba(255,255,255,.12);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  color:var(--mut);font-size:16px;pointer-events:auto}
+body.light .hud{background:rgba(255,255,255,.96);border-top:1px solid #d5e1ee;box-shadow:0 -6px 18px rgba(15,40,70,.07)}
+.hud .hint{position:static;bottom:auto;left:auto;flex:none;font-size:15px;font-weight:700;white-space:nowrap;color:var(--amber);animation:pulseH 1.8s infinite;pointer-events:none}
+body.light .hud .hint{color:#92400e}
+#cnt{flex:none;direction:ltr;unicode-bidi:isolate;min-width:64px;text-align:center;font-weight:800;font-variant-numeric:tabular-nums;color:var(--ink)}
+#ttl{flex:1;min-width:0;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700}
+.hud .btns{display:flex;flex:none;gap:8px}
+.hud button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-width:40px;min-height:40px;padding:6px 14px;font-size:16px;font-weight:700;line-height:1;border-radius:12px}
+.hud button svg{width:20px;height:20px;flex:none}
+#bN{background:var(--teal)!important;border-color:transparent!important;color:#06202a!important}
+body.light #bN{color:#fff!important}
+#bPDF{background:transparent!important;border-color:rgba(25,211,189,.55)!important}
+body.light #bPDF{background:#fff!important;border-color:#0f766e!important;color:#0f766e!important}
+body.light #bPDF:disabled{opacity:.8}
+
+/* menu */
+.menu{position:fixed;inset:0;z-index:100;display:none;overflow:auto;padding:max(18px,env(safe-area-inset-top,0px)) 28px 28px;overscroll-behavior:contain}
+.menu.show{display:block}
+.mtop{position:sticky;top:-18px;z-index:2;display:flex;align-items:center;gap:14px;padding:18px 0 14px;margin:-18px 0 8px;background:rgba(4,12,24,.96)}
+body.light .mtop{background:rgba(255,255,255,.98)}
+.mtop h3{flex:none;font-size:28px;margin:0}
+#mq{flex:1;min-width:0;font:inherit;font-size:18px;padding:10px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);color:var(--ink);outline:none}
+#mq:focus{border-color:var(--amber)}
+body.light #mq{background:#fff;border-color:#c5d4e4}
+#mx{flex:none;font:inherit;font-size:22px;line-height:1;width:46px;height:46px;border-radius:14px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:var(--ink);cursor:pointer}
+body.light #mx{background:#fff;border-color:#c5d4e4}
+.menu .grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.menu .grid button{display:flex;align-items:center;gap:10px;min-height:52px;padding:10px 14px;font-size:19px;line-height:1.4}
+.menu .grid button b{flex:none;min-width:34px;margin:0;text-align:center}
+.menu .grid button.cur{outline:3px solid var(--amber);outline-offset:-1px}
+.menu .grid button[hidden]{display:none}
+.menu .none{grid-column:1/-1;text-align:center;color:var(--mut);padding:30px 0;font-size:20px}
+
+/* ---------- overlap fixes (all modes) ---------- */
+.slide{padding-bottom:28px}
+.body{justify-content:flex-start}
+.body>:first-child{margin-top:auto}
+.body>:last-child{margin-bottom:auto}
+.body>*{flex-shrink:0}
+.cover,.slide.center{justify-content:flex-start}
+.cover>:first-child,.slide.center>:first-child{margin-top:auto}
+.cover>:last-child,.slide.center>:last-child{margin-bottom:auto}
+.slide{overflow-wrap:break-word}
+.g2>*,.g3>*,.g4>*,.ag>*,.opts>*,.labwrap>*,.review-layout>*,.mindmap-grid>*{min-width:0}
+.f,.eq{max-width:100%;overflow-wrap:anywhere}
+.fm{direction:ltr;unicode-bidi:isolate;display:inline-block;font-family:'Segoe UI','DejaVu Sans',Arial,sans-serif;font-weight:700;white-space:nowrap;max-width:100%}
+.fm sub,.fm sup{font-size:.62em}.fm sub{vertical-align:-.28em}.fm sup{vertical-align:.55em}
+.labwrap,.review-layout,.review-panel,.mindmap-grid{min-height:auto}
+.mindmap-grid{grid-template-rows:none;grid-auto-rows:auto}
+.review-panel{overflow:visible}
+.review-item{min-width:0}
+.review-name{min-width:0}
+.flipc .fa,.flipc .fb{overflow:auto}
+.eflow i sup{font-size:.7em;vertical-align:.35em}
+
+/* ---------- reflow mode (phones, tablets in portrait) ---------- */
+html.rf .stage{position:absolute;left:0!important;top:0!important;transform:none!important;zoom:var(--z);border-radius:0;box-shadow:none}
+html.rf .slide{padding:22px 26px 20px}
+html.rf .fit{overflow-y:auto;overflow-x:hidden;transform:none!important;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-bottom:16px}
+html.rf .cover,html.rf .slide.center{overflow-y:auto}
+html.rf .sh{gap:14px;margin-bottom:16px}
+html.rf .sh h2{font-size:36px;line-height:1.3}
+html.rf .sh .n{min-width:54px;height:54px;font-size:28px;border-radius:17px}
+html.rf .sh .bar{display:none}
+html.rf .body{gap:16px}
+html.rf .cover h1{font-size:78px;line-height:1.25}
+html.rf .cover .chip{font-size:24px;padding:4px 22px}
+html.rf .cover .s1{font-size:30px}
+html.rf .cover .s2{font-size:26px}
+html.rf .cover .go{font-size:24px;padding:8px 34px}
+html.rf .cover::before,html.rf .cover::after{display:none}
+html.rf .ring{width:220px;height:220px}
+html.rf .ring span{width:178px;height:178px;font-size:46px}
+html.rf #resMsg{font-size:30px}
+html.rf .flipc{height:260px}
+html.rf .glass{padding:18px 22px}
+html.rf .card{padding:16px 20px}
+html.rf .rbox{min-width:0;width:100%}
+html.rf .mindmap-core{min-width:0;width:100%}
+html.rf1 .labsvg{aspect-ratio:460/360;width:100%}
+html.rf1 .labwrap{grid-template-columns:minmax(0,1fr)!important}
+html.rf:not(.rf1) .labwrap{grid-template-columns:420px minmax(0,1fr)!important;align-items:start}
+html.rf:not(.rf1) .labsvg{height:340px}
+html.rf .eq{font-size:26px;padding:10px 14px}
+html.rf .eq.sm{font-size:24px}
+html.rf .qt{font-size:34px}
+
+/* single column (narrow phones) */
+html.rf1 .g2,html.rf1 .g3,html.rf1 .ag,html.rf1 .opts,html.rf1 .challenge-options,html.rf1 .review-layout,html.rf1 .mindmap-grid{grid-template-columns:minmax(0,1fr)!important}
+html.rf1 .g4{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+html.rf1 .rx{flex-direction:column;align-items:stretch;gap:0}
+html.rf1 .eflow{height:64px;width:100%;flex:none}
+html.rf1 .ag .it{min-height:0;padding:14px 18px;font-size:28px}
+html.rf1 .cover h1{font-size:68px}
+
+/* tables become labelled cards on narrow screens */
+html.rf1 table.tb,html.rf1 .tb tbody{display:block;width:100%}
+html.rf1 .tb tr.hdr{display:none}
+html.rf1 .tb tr{display:block;margin:0 0 12px;padding:10px 18px 12px;border-radius:18px;background:var(--cardbg);border:1px solid rgba(128,140,160,.35);border-right:6px solid var(--ac,var(--teal))}
+html.rf1 .tb td,html.rf1 .tb th{display:block;width:auto;background:none!important;border:0!important;box-shadow:none!important;border-radius:0!important;padding:5px 0;text-align:right!important;font-size:.9em}
+html.rf1 .tb td:first-child{font-size:1.05em;font-weight:800;padding-bottom:7px;margin-bottom:4px;border-bottom:1px dashed rgba(128,140,160,.45)!important}
+html.rf1 .tb td[data-l]:not(:first-child)::before{content:attr(data-l);display:block;font-size:.8em;font-weight:800;color:var(--ac,var(--teal));opacity:.95;margin-bottom:1px}
+
+/* ---------- phones: compact bar ---------- */
+@media (max-width:760px){
+  .hud{gap:6px;padding-left:8px;padding-right:8px}
+  .hud .tx{display:none}
+  .hud .hint,#ttl{display:none!important}
+  #cnt{min-width:50px;font-size:15px}
+  .hud .btns{flex:1;gap:5px}
+  .hud button{flex:1;min-width:0;padding:6px 0}
+  #bP,#bN{flex:1.5}
+  #bF{display:none}
+  .menu{padding-left:16px;padding-right:16px}
+  .mtop h3{display:none}
+  .menu .grid{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:420px){#bPDF{display:none}}
+@media (min-width:761px) and (max-width:1000px){.hud .hint{display:none!important}.hud .tx{display:none}.hud button{padding:6px 12px}}
+@media print{.hud,.menu,.prog{display:none!important}}
+
+/* inline-styled grids (repeat(3..5,1fr)) collapse to 2 columns on narrow phones */
+[style*="display:grid"]>*{min-width:0}
+html.rf1 [style*="repeat(3"],html.rf1 [style*="repeat(4"],html.rf1 [style*="repeat(5"],html.rf1 [style*="repeat(6"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+html.rf1 [style*="grid-template-columns:1fr 1fr 1fr"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+.cover>*,.slide.center>*{flex-shrink:0;max-width:100%}
+.menu{background:#06101f}
+body.light .menu{background:#f4f8fc}
+</style>
+
 <link rel="stylesheet" href="animate.min.css">
 </head>
 <body>
 <div class="stage" id="stage">
 <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="dots"></div>
-<div class="prog" id="prog"></div>
 
 <!-- 1 COVER -->
 <section class="slide cover" data-title="الغلاف" style="--ac:var(--teal)">
@@ -1051,15 +1202,28 @@ body.light .quiz-slide .qt,body.light .qt{color:#0b2540}
  <div class="s2 in" data-a="fadeInUp">Dr / Mohammed</div>
 </section>
 
-<div class="hint" id="hint">اضغط للتالي</div>
-<div class="hud"><div id="cnt">1 / 1</div><div id="ttl"></div><div class="btns"><button onclick="location.href='index.html'">الرئيسية</button><button id="bM">القائمة</button><button id="bP">السابق</button><button id="bN">التالي</button><button id="bT">الوضع</button><button id="bPDF" title="تحميل كل شريحة في صفحة PDF مستقلة">تحميل PDF</button><button id="bF">ملء الشاشة</button></div></div>
-<div class="menu" id="menu" role="dialog" aria-label="اختيار الشريحة"><h3>اختار الشريحة</h3><div class="grid" id="mgrid"></div></div>
 </div>
 
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud" role="toolbar" aria-label="أدوات المحاضرة">
+ <div id="cnt" dir="ltr">1 / 1</div>
+ <div class="hint" id="hint">اضغط للتالي</div>
+ <div id="ttl"></div>
+ <div class="btns">
+  <button type="button" id="bH" aria-label="الرئيسية" onclick="location.href='index.html'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg><span class="tx">الرئيسية</span></button>
+  <button type="button" id="bM" aria-label="قائمة الشرائح"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span class="tx">القائمة</span></button>
+  <button type="button" id="bP" aria-label="السابق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="tx">السابق</span></button>
+  <button type="button" id="bN" aria-label="التالي"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg><span class="tx">التالي</span></button>
+  <button type="button" id="bT" aria-label="تبديل الوضع الفاتح والداكن"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg><span class="tx">الوضع</span></button>
+  <button type="button" id="bPDF" title="تحميل كل شريحة في صفحة PDF مستقلة" aria-label="تحميل PDF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg><span class="tx">PDF</span></button>
+  <button type="button" id="bF" aria-label="ملء الشاشة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span class="tx">ملء الشاشة</span></button>
+ </div>
+</div>
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="اختيار الشريحة"><div class="mtop"><h3>اختار الشريحة</h3><input id="mq" type="search" placeholder="ابحث عن شريحة…" autocomplete="off" aria-label="بحث في الشرائح"><button id="mx" type="button" aria-label="إغلاق">✕</button></div><div class="grid" id="mgrid"></div></div>
 <script>
 (function(){
 const stage=document.getElementById('stage');
-function fit(){const s=Math.min(innerWidth/1280,innerHeight/720);stage.style.transform='translate(-50%,-50%) scale('+s+')'}
+function fit(){}
 addEventListener('resize',fit);fit();
 
 /* chemistry formatter */
@@ -1275,6 +1439,7 @@ document.addEventListener('click',function(e){
 });
 document.querySelectorAll('.it').forEach(function(it){it.addEventListener('click',function(ev){ev.stopPropagation();if(it.classList.contains('on'))enter(+it.dataset.go,false)})});
 document.addEventListener('keydown',function(e){
+ if(e.target&&e.target.closest&&e.target.closest('input,textarea'))return;
  const k=e.key;
  if((k==='Enter'||k===' ')&&e.target.closest('button,[role="button"],input,textarea,select,a'))return;
  if(k==='ArrowLeft'||k===' '||k==='Enter'||k==='PageDown'||k==='ArrowDown'){e.preventDefault();next()}
@@ -1293,7 +1458,7 @@ let tx=null;
 document.addEventListener('touchstart',function(e){tx=e.touches[0].clientX},{passive:true});
 document.addEventListener('touchend',function(e){if(tx===null)return;const d=e.changedTouches[0].clientX-tx;tx=null;if(document.getElementById('menu').classList.contains('show'))return;if(Math.abs(d)>70){e.preventDefault();d>0?prev():next()}},{passive:false});
 function fs(){if(!document.fullscreenElement)document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();else document.exitFullscreen()}
-function toggleMenu(){document.getElementById('menu').classList.toggle('show')}
+function toggleMenu(){const m=document.getElementById('menu');m.classList.toggle('show');if(window.__rspMenu)window.__rspMenu(m.classList.contains('show'))}
 document.getElementById('bM').onclick=function(e){e.stopPropagation();toggleMenu()};
 document.getElementById('bP').onclick=function(e){e.stopPropagation();prev()};
 document.getElementById('bN').onclick=function(e){e.stopPropagation();next()};
@@ -1316,9 +1481,9 @@ document.getElementById('bT').onclick=function(e){e.stopPropagation();setTheme(!
 /* auto-fit: nothing may leave the screen */
 slides.forEach(function(sl){if(sl.classList.contains('cover')||sl.dataset.results)return;
  const w=document.createElement('div');w.className='fit';while(sl.firstChild)w.appendChild(sl.firstChild);sl.appendChild(w)});
-function fitCur(){const s=slides[cur];const f=s&&s.querySelector('.fit');if(!f)return;f.style.transform='none';
+function fitCur(){const s=slides[cur];const f=s&&s.querySelector('.fit');if(!f)return;f.style.transform='none';if(document.documentElement.classList.contains('rf'))return;
  if(s.classList.contains('quiz-slide')||s.querySelector('.opts[data-mini]'))return;
- const k=Math.max(.62,Math.min(1,f.clientHeight/Math.max(f.scrollHeight,1),f.clientWidth/Math.max(f.scrollWidth,1)));
+ const k=Math.max(.55,Math.min(1,f.clientHeight/Math.max(f.scrollHeight,1),f.clientWidth/Math.max(f.scrollWidth,1)));
  if(k<.92)f.style.transform='scale('+k+')'}
 const _enter=enter;enter=function(i,e){_enter(i,e);fitCur()};
 document.addEventListener('click',function(){setTimeout(fitCur,60)});
@@ -1326,7 +1491,7 @@ addEventListener('resize',function(){setTimeout(fitCur,60)});
 addEventListener('orientationchange',function(){setTimeout(fitCur,100)});
 if(document.fonts)document.fonts.ready.then(fitCur);
 /* shrink flip-card text until it fits (both faces) */
-function fitFlips(){
+function fitFlips(){if(document.documentElement.classList.contains('rf'))return;
  const s=slides[cur];if(!s)return;
  s.querySelectorAll('.flipc').forEach(function(c){
   c.querySelectorAll('.fa,.fb').forEach(function(face){
@@ -1336,7 +1501,7 @@ function fitFlips(){
 const _enter2=enter;enter=function(i,e){_enter2(i,e);fitFlips();setTimeout(fitFlips,120)};
 document.addEventListener('click',function(){setTimeout(fitFlips,80)});
 if(document.fonts)document.fonts.ready.then(fitFlips);
-const rt=document.createElement('div');rt.id='rot';rt.textContent='لف الموبايل أفقيًا لشكل أفضل';document.body.appendChild(rt);
+
 
 /* PDF export: one exact 16:9 page per slide, with all teaching steps visible. */
 const pdfButton=document.getElementById('bPDF');
@@ -1395,7 +1560,9 @@ function fitExportContent(slide){
 }
 async function exportSlidesToPDF(){
  if(pdfButton.disabled)return;
- const oldLabel=pdfButton.textContent;
+ const _cov=document.createElement('div');_cov.id='pdfcover';_cov.style.cssText='position:fixed;inset:0;z-index:999;background:#0b1b30;color:#fff;display:flex;align-items:center;justify-content:center;font:700 22px Cairo,Tahoma,sans-serif;text-align:center;padding:20px';_cov.textContent='جاري تجهيز ملف PDF… استنى لحظات';document.body.appendChild(_cov);
+ document.documentElement.classList.remove('rf','rf1');
+ const oldLabel=pdfButton.innerHTML;
  pdfButton.disabled=true;pdfButton.textContent='تجهيز PDF...';
  let host=null,exportStage=null,exportCss=null;
  try{
@@ -1443,16 +1610,152 @@ async function exportSlidesToPDF(){
  }catch(err){
   console.error('PDF export failed:',err);
   alert('مقدرتش أجهز ملف PDF. اتأكد إن الإنترنت شغال وجرب تاني، لأن التحويل بيحمّل مكتبات PDF عند الطلب.');
-  pdfButton.textContent=oldLabel;
+  pdfButton.innerHTML=oldLabel;
  }finally{
+  _cov.remove();if(window.__rspLayout)window.__rspLayout();
   if(host)host.remove();if(exportCss)exportCss.remove();
   pdfButton.disabled=false;
-  if(pdfButton.textContent==='تم تجهيز PDF')setTimeout(function(){pdfButton.textContent=oldLabel},2200);
+  if(pdfButton.textContent==='تم تجهيز PDF')setTimeout(function(){pdfButton.innerHTML=oldLabel},2200);
  }
 }
 pdfButton.addEventListener('click',function(e){e.stopPropagation();exportSlidesToPDF()});
 
 enter(0,false);
+/* ===== RSP v1: responsive layer (runs inside the lecture engine scope) ===== */
+(function(){
+const RT=document.documentElement;
+const LEC=(document.querySelector('meta[name=lec]')||{}).content||'x';
+const hudEl=document.getElementById('hud');
+let Z=1;
+
+/* ---- 1. chemistry formulas written as plain text -> real sub/superscripts ---- */
+const FTOK=/\(?[A-Z][A-Za-z0-9()]*(?:\^[0-9]*[+\-\u2212])?/g;
+const FOK=/^(?:\(?[A-Z][a-z]?\d*\)?\d*)+(?:\^[0-9]*[+\-\u2212])?$/;
+function isFormula(t){return /[A-Za-z)]\d/.test(t)&&FOK.test(t)}
+function fmtNodes(root){
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+    if(!/[A-Z][A-Za-z0-9()]*\d/.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+    const p=n.parentElement;if(!p||p.closest('script,style,svg,sub,sup,.f,.eq,.fm,textarea,input'))return NodeFilter.FILTER_REJECT;
+    return NodeFilter.FILTER_ACCEPT}});
+  const list=[];while(w.nextNode())list.push(w.currentNode);
+  list.forEach(function(n){
+    const s=n.nodeValue;let last=0,m,any=false;const frag=document.createDocumentFragment();FTOK.lastIndex=0;
+    while((m=FTOK.exec(s))){
+      const tok=m[0];if(!isFormula(tok))continue;
+      any=true;if(m.index>last)frag.appendChild(document.createTextNode(s.slice(last,m.index)));
+      const sp=document.createElement('span');sp.className='fm';sp.innerHTML=conv(tok);frag.appendChild(sp);last=m.index+tok.length}
+    if(!any)return;if(last<s.length)frag.appendChild(document.createTextNode(s.slice(last)));
+    n.parentNode.replaceChild(frag,n)})}
+document.querySelectorAll('.slide').forEach(fmtNodes);
+document.querySelectorAll('.eflow i').forEach(function(i){i.innerHTML='e<sup>\u2212</sup>'});
+const FM=function(t){const d=document.createElement('div');d.textContent=t||'';fmtNodes(d);
+  // text is wrapped in a div only to reuse the walker; formulas inside become spans
+  return d.innerHTML};
+
+/* ---- 2. tables -> labelled cards on narrow screens ---- */
+document.querySelectorAll('table.tb').forEach(function(t){
+  const rows=[...t.querySelectorAll('tr')];if(rows.length<2)return;
+  const hr=rows[0];if(!hr.querySelector('th'))return;
+  hr.classList.add('hdr');
+  const heads=[...hr.children].map(function(c){return c.textContent.trim()});
+  rows.slice(1).forEach(function(r){[...r.children].forEach(function(c,i){if(heads[i])c.setAttribute('data-l',heads[i])})})});
+
+/* ---- 3. slide menu: search, current marker, close button ---- */
+const menu=document.getElementById('menu'),mg=document.getElementById('mgrid'),mq=document.getElementById('mq');
+function buildMenu(){
+  mg.innerHTML='';
+  slides.forEach(function(s,i){
+    const b=document.createElement('button');b.type='button';b.dataset.i=i;b.dataset.q=(s.dataset.title||'').toLowerCase();
+    b.innerHTML='<b>'+(i+1)+'</b><span>'+FM(s.dataset.title||'')+'</span>';
+    b.onclick=function(ev){ev.stopPropagation();menu.classList.remove('show');enter(i,false)};mg.appendChild(b)});
+  const none=document.createElement('div');none.className='none';none.id='mnone';none.hidden=true;none.textContent='مفيش شريحة بالاسم ده';mg.appendChild(none)}
+buildMenu();
+function filterMenu(){
+  const q=(mq.value||'').trim().toLowerCase();let n=0;
+  mg.querySelectorAll('button').forEach(function(b){const ok=!q||b.dataset.q.indexOf(q)>-1;b.hidden=!ok;if(ok)n++});
+  document.getElementById('mnone').hidden=n>0}
+mq.addEventListener('input',filterMenu);
+document.getElementById('mx').onclick=function(e){e.stopPropagation();menu.classList.remove('show')};
+window.__rspMenu=function(show){
+  if(!show)return;mq.value='';filterMenu();
+  mg.querySelectorAll('button').forEach(function(b){b.classList.toggle('cur',+b.dataset.i===cur)});
+  const c=mg.querySelector('button.cur');if(c)setTimeout(function(){c.scrollIntoView({block:'center'})},30);
+  if(innerWidth>=900)setTimeout(function(){mq.focus()},50)};
+
+/* ---- 4. layout controller ---- */
+function setTitle(){const t=document.getElementById('ttl');if(t)t.innerHTML=FM(slides[cur].dataset.title||'')}
+function rfFonts(){
+  const s=slides[cur];if(!s)return;
+  s.querySelectorAll('[data-rfs]').forEach(function(e){e.style.fontSize=e.dataset.rfs==='-'?'':e.dataset.rfs;e.removeAttribute('data-rfs')});
+  if(!RT.classList.contains('rf'))return;
+  const minV=14/Z;
+  s.querySelectorAll('*').forEach(function(e){
+    if(e.closest('svg')||e.closest('sub,sup'))return;
+    let has=false;for(let k=0;k<e.childNodes.length;k++){const c=e.childNodes[k];if(c.nodeType===3&&c.nodeValue.trim()){has=true;break}}
+    if(!has)return;
+    const fs=parseFloat(getComputedStyle(e).fontSize);
+    if(fs&&fs<minV){e.dataset.rfs=e.style.fontSize||'-';e.style.fontSize=minV+'px'}})}
+function rfFlips(){
+  const s=slides[cur];if(!s)return;
+  s.querySelectorAll('.flipc').forEach(function(c){
+    if(!RT.classList.contains('rf')){c.style.height='';return}
+    let need=0;
+    c.querySelectorAll('.fa,.fb').forEach(function(face){
+      const r=document.createRange();r.selectNodeContents(face);
+      need=Math.max(need,r.getBoundingClientRect().height/Z)});
+    c.style.height=Math.max(190,Math.min(need+56,560))+'px'})}
+function afterLayout(){
+  const s=slides[cur];
+  if(s){const f=s.querySelector('.fit');if(f&&RT.classList.contains('rf'))f.style.transform='none'}
+  rfFonts();rfFlips();
+  if(!RT.classList.contains('rf'))fitCur()}
+function layout(){
+  const W=innerWidth,H=innerHeight;
+  const hudH=hudEl?hudEl.offsetHeight:54;
+  const availH=Math.max(200,H-hudH);
+  const wide=W>=860&&availH>=520&&(W/availH)>=1.3;
+  stage.style.cssText='';
+  if(wide){
+    RT.classList.remove('rf','rf1');
+    const s=Math.min(W/1280,availH/720);Z=s;
+    stage.style.top=(availH/2)+'px';
+    stage.style.transform='translate(-50%,-50%) scale('+s+')';
+  }else{
+    RT.classList.add('rf');
+    let z;if(W<640)z=W/640;else if(availH<480)z=.62;else z=Math.min(1,W/880);
+    z=Math.max(.5,z);Z=z;RT.style.setProperty('--z',z);
+    stage.style.width=(W/z)+'px';stage.style.height=(availH/z)+'px';
+    RT.classList.toggle('rf1',W/z<760)}
+  afterLayout()}
+window.__rspLayout=layout;
+let lt1=0;
+addEventListener('resize',function(){clearTimeout(lt1);lt1=setTimeout(layout,60)});
+addEventListener('orientationchange',function(){setTimeout(layout,180)});
+if(document.fonts)document.fonts.ready.then(function(){setTimeout(layout,0)});
+
+/* ---- 5. after every slide change: title, fonts, flips, remember position ---- */
+const _eR=enter;
+enter=function(i,e){
+  _eR(i,e);setTitle();afterLayout();
+  try{
+    const K='ec_'+LEC+'_';
+    localStorage.setItem(K+'pos',String(i+1));localStorage.setItem(K+'n',String(slides.length));
+    if(i+1>+(localStorage.getItem(K+'max')||0))localStorage.setItem(K+'max',String(i+1));
+    localStorage.setItem(K+'t',String(Date.now()));
+    if(slides[i].dataset.results&&typeof Q!=='undefined'){
+      const b=+(localStorage.getItem(K+'best')||-1);
+      if(score>b){localStorage.setItem(K+'best',String(score));localStorage.setItem(K+'tot',String(Q.length))}}
+  }catch(_){}
+  try{history.replaceState(null,'','#s='+(i+1))}catch(_){}};
+document.addEventListener('click',function(){setTimeout(afterLayout,70)});
+
+/* ---- 6. misc ---- */
+if(!document.documentElement.requestFullscreen){const f=document.getElementById('bF');if(f)f.style.display='none'}
+layout();
+const mh=/[#&]s=(\d+)/.exec(location.hash||'');
+if(mh){const n=Math.max(1,Math.min(slides.length,+mh[1]));if(n>1)enter(n-1,false)}
+})();
+
 })();
 </script>
 </body>

@@ -2,107 +2,338 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>التحليل الكيميائي - الباب الثاني</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f766e">
+<title>التحليل الكيميائي - الباب الثاني | ثالثة ثانوي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="animate.min.css">
 <style>
-:root{--bg:#07162b;--bg2:#0d2a4a;--teal:#19d3bd;--amber:#ffc857;--violet:#9b8cff;--ink:#eaf4ff;--mut:#9fb6d0}
+:root{--bg:#f4f8fc;--bg2:#e6f0f8;--card:#fff;--line:#d5e1ee;--soft:#eef4fa;--ink:#10263d;--mut:#586e86;--teal:#0f766e;--amber:#b45309;--violet:#4f46e5;--coral:#be123c;--green:#15803d;--blue:#0369a1;--onac:#fff;--shadow:0 8px 24px rgba(15,40,70,.09);--fs:1}
+body.dark{--bg:#07162b;--bg2:#0d2a4a;--card:rgba(255,255,255,.07);--line:rgba(255,255,255,.16);--soft:rgba(255,255,255,.07);--ink:#eaf4ff;--mut:#9fb6d0;--teal:#19d3bd;--amber:#ffc857;--violet:#9b8cff;--coral:#ff6b6b;--green:#4ade80;--blue:#4cc3ff;--onac:#06202a;--shadow:0 10px 30px rgba(0,0,0,.28)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;font-family:'Cairo','Segoe UI',Tahoma,sans-serif;color:var(--ink);background:radial-gradient(1000px 600px at 90% 0%,#12406b 0%,transparent 60%),radial-gradient(800px 500px at 0% 100%,#0f3b4e 0%,transparent 60%),linear-gradient(160deg,var(--bg),var(--bg2));padding:clamp(20px,5vw,56px) clamp(16px,4vw,48px)}
-.wrap{max-width:1080px;margin:0 auto}
-header{text-align:center;margin-bottom:clamp(24px,5vw,48px)}
-.chip{display:inline-block;background:var(--amber);color:#2b2000;font-weight:900;font-size:clamp(14px,2.2vw,20px);padding:2px 22px;border-radius:30px}
-h1{font-size:clamp(34px,7vw,72px);font-weight:900;line-height:1.3;margin-top:12px;background:linear-gradient(90deg,#fff,var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
-.sub{color:var(--mut);font-size:clamp(15px,2.4vw,22px);margin-top:4px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px}
-.card{position:relative;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-top:6px solid var(--ac);border-radius:22px;padding:22px 24px;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:transform .2s,background .2s}
-.card:hover,.card:focus-visible{transform:translateY(-6px);background:rgba(255,255,255,.12);outline:none}
-.card:focus-visible{box-shadow:0 0 0 3px var(--amber)}
-.num{width:54px;height:54px;border-radius:16px;background:var(--ac);color:#06202a;font-weight:900;font-size:28px;display:flex;align-items:center;justify-content:center}
-.card h2{font-size:clamp(22px,3vw,28px);font-weight:800;line-height:1.4}
-.card p{color:var(--mut);font-size:clamp(15px,2vw,18px);line-height:1.7;flex:1}
+html{scroll-behavior:smooth;scroll-padding-top:84px;font-size:calc(16px*var(--fs));-webkit-text-size-adjust:100%}
+body{min-height:100vh;font-family:'Cairo','Segoe UI',Tahoma,sans-serif;color:var(--ink);line-height:1.6;background:radial-gradient(900px 520px at 100% 0%,color-mix(in srgb,var(--teal) 14%,transparent),transparent 62%),radial-gradient(700px 460px at 0% 100%,color-mix(in srgb,var(--violet) 10%,transparent),transparent 62%),linear-gradient(160deg,var(--bg),var(--bg2));background-attachment:fixed}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:8px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(14px,4vw,32px) 60px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+/* top bar */
+.bar{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--line)}
+.bar-in{max-width:1120px;margin:0 auto;padding:10px clamp(14px,4vw,32px);display:flex;align-items:center;gap:10px}
+.brand{font-weight:900;font-size:1.15rem;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.brand i{font-style:normal;display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:var(--teal);color:var(--onac);font-size:1.1rem}
+.search{flex:1;min-width:0;position:relative}
+.search input{width:100%;font:inherit;padding:8px 14px 8px 40px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.search kbd{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:.75rem;color:var(--mut);border:1px solid var(--line);border-radius:6px;padding:0 6px}
+.ib{display:grid;place-items:center;min-width:40px;height:40px;padding:0 10px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-weight:800}
+.ib:hover{border-color:var(--teal)}
+/* hero */
+.hero{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;padding:clamp(22px,5vw,48px) 0 clamp(14px,3vw,26px)}
+.chip{display:inline-block;background:var(--amber);color:#fff;font-weight:900;font-size:clamp(.85rem,2.2vw,1.1rem);padding:2px 20px;border-radius:30px}
+body.dark .chip{color:#2b2000}
+h1{font-size:clamp(2.2rem,7vw,4.4rem);font-weight:900;line-height:1.25;margin-top:10px;background:linear-gradient(90deg,var(--ink),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mut);font-size:clamp(1rem,2.4vw,1.35rem);margin-top:4px}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border:0;border-radius:30px;padding:10px 24px;font-weight:800;background:var(--teal);color:var(--onac)}
+.btn.alt{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.btn:hover{filter:brightness(1.07);transform:translateY(-2px)}
+.btn{transition:transform .15s,filter .15s}
+.stats{display:grid;gap:12px;justify-items:center}
+.ring{--p:0;width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--teal) calc(var(--p)*1%),var(--soft) 0);box-shadow:var(--shadow)}
+.ring span{width:118px;height:118px;border-radius:50%;background:var(--bg);display:grid;place-items:center;text-align:center;line-height:1.2}
+.ring b{font-size:1.8rem;font-weight:900;display:block;direction:ltr}
+.ring small{color:var(--mut);font-size:.8rem}
+.cd{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px 14px;text-align:center;box-shadow:var(--shadow);min-width:150px}
+.cd b{font-size:1.4rem;color:var(--amber)}
+.cd button{background:none;border:0;color:var(--mut);font-size:.8rem;text-decoration:underline}
+/* sections */
+h2.sec{font-size:clamp(1.4rem,3.4vw,2rem);font-weight:900;margin:clamp(26px,5vw,44px) 0 14px;display:flex;align-items:center;gap:10px}
+h2.sec::after{content:"";flex:1;height:4px;border-radius:4px;background:linear-gradient(270deg,var(--teal),transparent);opacity:.5}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:18px}
+.card{position:relative;display:flex;flex-direction:column;gap:10px;background:var(--card);border:1px solid var(--line);border-top:6px solid var(--ac);border-radius:22px;padding:20px 22px;box-shadow:var(--shadow);transition:transform .2s}
+.card:hover{transform:translateY(-5px)}
+.card.hide{display:none}
+.num{width:50px;height:50px;border-radius:15px;background:var(--ac);color:var(--onac);font-weight:900;font-size:1.6rem;display:grid;place-items:center}
+.card h3{font-size:1.4rem;font-weight:800;line-height:1.4}
+.card p{color:var(--mut);flex:1}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
-.tags span{font-size:14px;font-weight:700;background:rgba(255,255,255,.1);border-radius:10px;padding:0 10px}
-.go{align-self:flex-start;background:var(--ac);color:#06202a;font-weight:800;font-size:17px;padding:4px 26px;border-radius:30px}
-.soon{opacity:.55;pointer-events:none;border-top-color:rgba(255,255,255,.3)}
-.soon .num{background:rgba(255,255,255,.2);color:var(--ink)}
-.soon .go{background:rgba(255,255,255,.18);color:var(--ink)}
-@media (prefers-reduced-motion:reduce){.card{transition:none}}
-
-/* summary tables */
-.sums{margin-top:clamp(28px,5vw,52px);display:flex;flex-direction:column;gap:22px}
-.sum{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:6px solid var(--ac);border-radius:22px;padding:18px clamp(12px,2.5vw,24px) 22px}
+.tags span{font-size:.85rem;font-weight:700;background:var(--soft);border-radius:10px;padding:0 10px}
+.meta{display:flex;justify-content:space-between;gap:8px;font-size:.85rem;color:var(--mut);font-weight:700}
+.pb{height:8px;border-radius:8px;background:var(--soft);overflow:hidden}
+.pb i{display:block;height:100%;width:0;background:var(--ac);border-radius:8px;transition:width .8s}
+.acts{display:flex;flex-wrap:wrap;gap:8px}
+.go{text-decoration:none;font-weight:800;background:var(--ac);color:var(--onac);padding:5px 22px;border-radius:30px}
+.go.alt{background:var(--soft);color:var(--ink);border:1px solid var(--line)}
+.badge{position:absolute;top:14px;left:14px;font-size:.78rem;font-weight:800;background:var(--green);color:#fff;border-radius:20px;padding:0 10px}
+/* tools */
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:18px;align-items:start}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px 20px;box-shadow:var(--shadow)}
+.panel h3{font-size:1.25rem;font-weight:900;margin-bottom:8px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.tab{border:1px solid var(--line);background:var(--soft);border-radius:30px;padding:3px 16px;font-weight:800;font-size:.9rem}
+.tab[aria-selected=true]{background:var(--teal);color:var(--onac);border-color:transparent}
+.chips{display:grid;gap:8px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--soft);border-radius:12px;padding:6px 12px;border-right:5px solid var(--c,var(--teal))}
+.row .nm{font-weight:800}
+.row .nm small{display:block;color:var(--mut);font-weight:600;font-size:.8rem}
+.pill{font-size:.82rem;font-weight:800;border-radius:20px;padding:0 12px;white-space:nowrap;border:1px solid var(--line);background:var(--card)}
+.pill.k{background:#20242a;color:#fff}.pill.w{background:#fff;color:#15263b}.pill.y{background:#f5d43e;color:#302500}.pill.o{background:#e68b25;color:#fff}.pill.b{background:#9a4b24;color:#fff}.pill.v{background:#7c3aed;color:#fff}.pill.g{background:#168553;color:#fff}
+.e{direction:ltr;unicode-bidi:isolate;display:inline-block;font-weight:700}
+/* quiz */
+.q-t{font-weight:800;font-size:1.1rem;margin-bottom:10px}
+.q-o{display:grid;gap:8px}
+.q-o button{text-align:right;padding:8px 14px;border-radius:14px;border:2px solid var(--line);background:var(--soft);font-weight:700}
+.q-o button:hover:not(:disabled){border-color:var(--blue)}
+.q-o button.ok{background:color-mix(in srgb,var(--green) 22%,transparent);border-color:var(--green)}
+.q-o button.no{background:color-mix(in srgb,var(--coral) 20%,transparent);border-color:var(--coral)}
+.q-f{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:10px;color:var(--mut);font-weight:700;min-height:40px}
+.q-ex{margin-top:8px;font-size:.95rem;color:var(--mut)}
+/* summaries */
+.sums{display:flex;flex-direction:column;gap:22px}
+.sum{background:var(--card);border:1px solid var(--line);border-top:6px solid var(--ac);border-radius:22px;padding:16px clamp(10px,2.5vw,22px) 20px;box-shadow:var(--shadow)}
+.sum.off{display:none}
 .sum-h{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
-.sum-h h3{font-size:clamp(20px,3vw,27px);font-weight:900}
-.sum-h h3 small{display:block;font-size:14px;font-weight:600;color:var(--mut)}
-.pbtn{font:inherit;font-weight:800;font-size:16px;background:var(--ac);color:#06202a;border:0;border-radius:30px;padding:5px 22px;cursor:pointer}
-.pbtn:focus-visible{outline:3px solid #fff}
-.tw{overflow-x:auto;border-radius:14px}
-table.st2{width:100%;border-collapse:collapse;min-width:640px;font-size:clamp(13px,1.6vw,16px);line-height:1.65}
-.st2 th,.st2 td{border:1px solid rgba(255,255,255,.2);padding:6px 10px;text-align:center;vertical-align:middle}
-.st2 thead th{background:var(--ac);color:#06202a;font-weight:900}
-.st2 tbody th{background:rgba(255,255,255,.1);font-weight:800;white-space:nowrap}
-.st2 tbody tr:nth-child(even) td{background:rgba(255,255,255,.04)}
-.st2 caption{caption-side:top;text-align:right;font-weight:800;color:var(--ac);padding:8px 2px 6px;font-size:1.05em}
-.st2 .e{direction:ltr;unicode-bidi:isolate;display:inline-block}
-.tip{margin-top:12px;font-size:clamp(13px,1.6vw,16px);color:var(--mut);line-height:1.8}
+.sum-h h3{font-size:clamp(1.15rem,3vw,1.6rem);font-weight:900}
+.sum-h h3 small{display:block;font-size:.85rem;font-weight:600;color:var(--mut)}
+.pbtn{font-weight:800;background:var(--ac);color:var(--onac);border:0;border-radius:30px;padding:5px 22px}
+.tw{overflow-x:auto;border-radius:14px;-webkit-overflow-scrolling:touch}
+table.st2{width:100%;border-collapse:collapse;min-width:640px;font-size:.95rem;line-height:1.65}
+.st2 th,.st2 td{border:1px solid var(--line);padding:6px 10px;text-align:center;vertical-align:middle}
+.st2 thead th{background:var(--ac);color:var(--onac);font-weight:900}
+.st2 tbody th{background:var(--soft);font-weight:800;white-space:nowrap}
+.st2 tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 60%,transparent)}
+.st2 caption{caption-side:top;text-align:right;font-weight:800;color:var(--ac);padding:8px 2px 6px}
+.st2 tr.miss{display:none}
+.tip{margin-top:12px;color:var(--mut);line-height:1.9;font-size:.95rem}
 .tip b{color:var(--ac)}
+mark{background:#fde68a;color:#3b2a00;border-radius:4px;padding:0 2px}
+.empty{display:none;text-align:center;color:var(--mut);padding:18px}
+footer{margin-top:40px;text-align:center;color:var(--mut);font-size:.9rem}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);border-radius:30px;padding:8px 20px;font-weight:700;z-index:99;display:none}
+@media (max-width:720px){.hero{grid-template-columns:1fr}.stats{grid-template-columns:auto 1fr;justify-items:stretch;align-items:center}.brand span{display:none}.search kbd{display:none}.search input{padding-left:14px}}
+@media (max-width:640px){
+ .tw{overflow:visible}
+ table.st2{min-width:0}.st2,.st2 tbody,.st2 tr,.st2 td,.st2 th,.st2 caption{display:block;width:100%}
+ .st2 thead{display:none}
+ .st2 tr{margin-bottom:10px;border:1px solid var(--line);border-right:5px solid var(--ac);border-radius:14px;padding:6px 12px;background:var(--soft)}
+ .st2 th,.st2 td,.st2 tbody tr:nth-child(even) td{border:0;background:none;text-align:right;padding:4px 0;white-space:normal}
+ .st2 tbody th{font-size:1.05rem;border-bottom:1px dashed var(--line);padding-bottom:6px;margin-bottom:2px}
+ .st2 td[data-l]::before{content:attr(data-l);display:block;font-size:.78rem;font-weight:800;color:var(--ac)}
+}
+@media (max-width:480px){.cta .btn{flex:1 1 130px;justify-content:center;padding:8px 14px}.cta .btn:first-child{flex-basis:100%}.ring{width:120px;height:120px}.ring span{width:94px;height:94px}.ring b{font-size:1.4rem}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* pages */
+.pages{position:sticky;top:60px;z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.pages-in{max-width:1120px;margin:0 auto;padding:8px clamp(14px,4vw,32px);display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.pages-in::-webkit-scrollbar{display:none}
+.pg-b{flex:none;display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);border-radius:30px;padding:6px 18px;font-weight:800;white-space:nowrap}
+.pg-b[aria-selected=true]{background:var(--teal);color:var(--onac);border-color:transparent}
+.pg{animation:pgIn .35s ease both}
+.pg.off{display:none}
+@keyframes pgIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+/* countdown */
+.count{margin:6px 0 0;border-radius:26px;padding:clamp(16px,3vw,26px);color:#fff;background:linear-gradient(135deg,#0f766e,#0e5f87 55%,#4f46e5);box-shadow:0 14px 34px rgba(15,60,110,.25);position:relative;overflow:hidden}
+.count::before,.count::after{content:"";position:absolute;border-radius:50%;pointer-events:none;border:30px solid rgba(255,255,255,.07)}
+.count::before{width:260px;height:260px;left:-80px;top:-110px}.count::after{width:200px;height:200px;right:-60px;bottom:-90px}
+.count h3{font-size:clamp(1.1rem,2.8vw,1.5rem);font-weight:900;position:relative}
+.count h3 small{display:block;font-size:.85rem;font-weight:600;opacity:.85}
+.units{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(8px,2vw,16px);margin-top:14px;direction:rtl}
+.u{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);border-radius:18px;padding:10px 4px;text-align:center;backdrop-filter:blur(4px)}
+.u b{display:block;font-size:clamp(1.8rem,7vw,3.4rem);font-weight:900;line-height:1.1;font-variant-numeric:tabular-nums;direction:ltr}
+.u span{font-size:clamp(.8rem,2.2vw,1rem);font-weight:700;opacity:.9}
+.cbar{position:relative;margin-top:14px;height:10px;border-radius:10px;background:rgba(255,255,255,.22);overflow:hidden}
+.cbar i{display:block;height:100%;width:0;border-radius:10px;background:linear-gradient(270deg,#ffc857,#fff);transition:width 1s}
+.cnote{position:relative;margin-top:8px;font-size:.9rem;opacity:.92;font-weight:700}
+.page-h{font-size:clamp(1.4rem,3.4vw,2rem);font-weight:900;margin:clamp(20px,4vw,30px) 0 14px}
+.one{grid-template-columns:minmax(0,1fr)!important;max-width:720px;margin-inline:auto}
+@media (max-width:720px){.pages{top:58px}}
+@media print{.pages{display:none!important}.pg.off{display:none!important}.pg-sums{display:block!important}.pg:not(.pg-sums){display:none!important}}
+/* print */
 @media print{
  @page{size:A4 landscape;margin:10mm}
  body{background:#fff!important;color:#000!important;padding:0!important;min-height:0}
- header,.grid,.pbtn,.sum-h small,.noprint{display:none!important}
- .wrap{max-width:none}
+ .bar,.hero,.grid,.tools,.pbtn,.sum-h small,.noprint,h2.sec,footer,.tabs,.toast{display:none!important}
+ .wrap{max-width:none;padding:0}
  .sums{margin:0;gap:0}
- .sum{display:none;background:#fff;border:0;border-radius:0;padding:0;box-shadow:none}
- body.p1 #s1,body.p2 #s2,body.p3 #s3{display:block}
- body.pall .sum{display:block;break-after:page}
+ .sum{display:none!important;background:#fff;border:0;border-radius:0;padding:0;box-shadow:none}
+ body.p1 #s1,body.p2 #s2,body.p3 #s3{display:block!important}
+ body.pall .sum{display:block!important;break-after:page}
  .sum-h h3{color:#000;font-size:20px;margin-bottom:6px}
  .st2{min-width:0;font-size:9.5pt;line-height:1.3}
- .st2 th,.st2 td{border:1px solid #333;color:#000;padding:3px 5px}
+ .st2 th,.st2 td{border:1px solid #333;color:#000;padding:3px 5px;background:#fff!important}
  .st2 thead th{background:#d9d9d9!important;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
  .st2 tbody th{background:#efefef!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
- .st2 tbody tr:nth-child(even) td{background:#fff!important}
  .st2 caption{color:#000}
  .tip{color:#000;font-size:9pt;line-height:1.45;margin-top:4px}.tip b{color:#000}
- #s3{zoom:.82}
  .st2 tr{break-inside:avoid}
+ #s3{zoom:.82}
+}
+@keyframes floatBox {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.count {
+  animation: floatBox 6s ease-in-out infinite;
+}
+@keyframes softGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(15, 118, 110, 0.4); }
+  50% { box-shadow: 0 0 15px 4px rgba(15, 118, 110, 0.3); }
+}
+.brand i {
+  animation: softGlow 3s infinite;
+}
+.card {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease !important;
+}
+.card:hover {
+  transform: translateY(-8px) scale(1.01) !important;
+  box-shadow: 0 20px 40px rgba(15,40,70,.15) !important;
+}
+.btn, .pg-b {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(15,118,110,0.3);
+}
+.doc-prefix {
+  font-weight: 700;
+  opacity: 0.85;
+  font-size: 0.9em;
+  color: var(--mut);
+  margin-right: 6px;
+}
+.doc-name {
+  color: var(--teal);
+  font-weight: 900;
+  display: inline-block;
+  filter: drop-shadow(0 4px 14px rgba(180, 83, 9, 0.3));
+  animation: namePulse 2.5s ease-in-out infinite alternate;
+}
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .doc-name {
+    background: linear-gradient(135deg, var(--amber), var(--coral), var(--teal));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+@keyframes namePulse {
+  0% { transform: scale(1); filter: drop-shadow(0 4px 8px rgba(180, 83, 9, 0.2)); }
+  100% { transform: scale(1.04); filter: drop-shadow(0 8px 20px rgba(180, 83, 9, 0.45)); }
 }
 </style>
 </head>
 <body>
+<div class="bar noprint"><div class="bar-in">
+ <div class="brand"><i></i><span>ربنا يوفقك ي حبيبي</span></div>
+ <label class="search"><span class="sr">بحث</span><input id="q" type="search" placeholder="ابحث: كربونات، AgNO3، رواسب، غاز…" autocomplete="off"><kbd>/</kbd></label>
+ <button class="ib" id="fsm" aria-label="تصغير الخط" title="تصغير الخط">أ-</button>
+ <button class="ib" id="fsp" aria-label="تكبير الخط" title="تكبير الخط">أ+</button>
+ <button class="ib" id="th" aria-label="تبديل الوضع الفاتح والداكن" title="الوضع"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+</div></div>
+<nav class="pages noprint" aria-label="أقسام الموقع"><div class="pages-in" role="tablist" id="pages">
+ <button class="pg-b" role="tab" data-p="lec" aria-selected="true">المحاضرات</button>
+ <button class="pg-b" role="tab" data-p="sums" aria-selected="false">الجداول</button>
+ <button class="pg-b" role="tab" data-p="quiz" aria-selected="false">تحدّي سريع</button>
+ <button class="pg-b" role="tab" data-p="ref" aria-selected="false">مرجع سريع</button>
+</div></nav>
 <div class="wrap">
- <header>
-  <div class="chip">ثالثة ثانوي &nbsp;|&nbsp; الثانوية العامة</div>
-  <h1>التحليل الكيميائي</h1>
-  <div class="sub">الباب الثاني: الكشف عن الأنيونات &nbsp;|&nbsp; شرح: Dr.Mohammed</div>
+ <div class="pg pg-lec" id="pg-lec">
+ <header class="hero">
+  <div>
+   <div class="chip animate__animated animate__bounceIn">ثالثة ثانوي &nbsp;|&nbsp; الثانوية العامة</div>
+   <h1 class="animate__animated animate__fadeInUp">أهلاً يا <span dir="ltr" style="display:inline-block;"><span class="doc-prefix">Dr.</span> <span class="doc-name">Sondos</span></span></h1>
+   <div class="sub animate__animated animate__fadeInUp animate__delay-1s" style="--animate-delay:.2s">ده شرح الباب التاني ي حياتي&nbsp;|&nbsp; شرح: Dr.Mohammed</div>
+   <div class="cta noprint">
+    <a class="btn" id="cont" href="lecture1.html">ابدأ من المحاضرة الأولى</a>
+    <button class="btn alt" type="button" data-go="quiz">تحدّي سريع</button>
+    <button class="btn alt" type="button" data-go="sums">الجداول</button>
+   </div>
+  </div>
+  <div class="stats noprint animate__animated animate__zoomIn" style="--animate-delay:.4s">
+   <div class="ring" id="ring" role="img" aria-label="نسبة التقدم"><span><div><b id="rp">0%</b><small>تقدمك</small></div></span></div>
+  </div>
  </header>
- <main class="grid">
-  <a class="card" href="lecture1.html" style="--ac:var(--teal)">
-   <div class="num">١</div>
-   <h2>المحاضرة الأولى</h2>
+
+
+ <section class="count noprint animate__animated animate__fadeInUp" aria-label="العد التنازلي للامتحان" style="--animate-delay:.3s">
+  <h3>فاضل على امتحان الكيمياء (وتحققي حلمك)<small>يوم ٢٦ / ٦ / ٢٠٢٧ —  ذاكري شوية كل يوم وهتوصلي  بإذن الله وانا معاكي ي روح قلبي</small></h3>
+  <div class="units" id="units" role="timer" aria-live="off">
+   <div class="u"><b id="cd-d">0</b><span>يوم</span></div>
+   <div class="u"><b id="cd-h">00</b><span>ساعة</span></div>
+   <div class="u"><b id="cd-m">00</b><span>دقيقة</span></div>
+   <div class="u"><b id="cd-s">00</b><span>ثانية</span></div>
+  </div>
+  <div class="cbar" aria-hidden="true"><i id="cd-bar"></i></div>
+  <div class="cnote" id="cd-note"></div>
+ </section>
+ <h2 class="sec noprint animate__animated animate__fadeInRight"> المحاضرات اهي ي قمر</h2>
+ <main class="grid noprint" id="cards">
+  <article class="card animate__animated animate__fadeInUp" data-k="1" data-s="كيفي كمي الكربونات البيكربونات الكبريتيت الثيوكبريتات HCl مخفف" style="--ac:var(--teal)">
+   <span class="badge" hidden></span>
+   <div class="num">١</div><h3>المحاضرة الأولى</h3>
    <p>مقدمة عن الكيمياء التحليلية، أنواع التحليل، وأنيونات الكربونات والبيكربونات والكبريتيت والثيوكبريتات.</p>
    <div class="tags"><span>كيفي وكمي</span><span>الكربونات</span><span>الكبريتيت</span><span>الثيوكبريتات</span></div>
-   <span class="go">ابدأ المحاضرة</span>
-  </a>
-  <a class="card" href="lecture2.html" style="--ac:var(--amber)">
-   <div class="num">٢</div>
-   <h2>المحاضرة الثانية</h2>
+   <div class="meta"><span class="mp">لم تبدأ بعد</span><span class="mb"></span></div><div class="pb"><i></i></div>
+   <div class="acts"><a class="go" href="lecture1.html">ابدأ المحاضرة</a></div>
+  </article>
+  <article class="card animate__animated animate__fadeInUp" style="--ac:var(--amber);animation-delay:.1s" data-k="2" data-s="الكبريتيد النيتريت الأكسدة الاختزال ملخص المجموعة HCl اختبار">
+   <span class="badge" hidden></span>
+   <div class="num">٢</div><h3>المحاضرة الثانية</h3>
    <p>أنيونا الكبريتيد والنيتريت، الأكسدة والاختزال في التجارب، وملخص وجدول مجموعة حمض HCl المخفف مع اختبار.</p>
    <div class="tags"><span>الكبريتيد</span><span>النيتريت</span><span>ملخص المجموعة</span><span>اختبار</span></div>
-   <span class="go">ابدأ المحاضرة</span>
-  </a>
-  <a class="card" href="lecture3.html" style="--ac:var(--violet)">
-   <div class="num">٣</div>
-   <h2>المحاضرة الثالثة</h2>
+   <div class="meta"><span class="mp">لم تبدأ بعد</span><span class="mb"></span></div><div class="pb"><i></i></div>
+   <div class="acts"><a class="go" href="lecture2.html">ابدأ المحاضرة</a></div>
+  </article>
+  <article class="card animate__animated animate__fadeInUp" style="--ac:var(--violet);animation-delay:.2s" data-k="3" data-s="الهاليدات الكلوريد البروميد اليوديد النيترات الحلقة البنية الكبريتات الفوسفات H2SO4 BaCl2 اختبار">
+   <span class="badge" hidden></span>
+   <div class="num">٣</div><h3>المحاضرة الثالثة</h3>
    <p>مجموعة أنيونات حمض الكبريتيك المركز (الكلوريد والبروميد واليوديد والنيترات) ومجموعة كلوريد الباريوم (الكبريتات والفوسفات) مع اختبار.</p>
    <div class="tags"><span>الهاليدات</span><span>النيترات</span><span>الحلقة البنية</span><span>الكبريتات</span><span>الفوسفات</span></div>
-   <span class="go">ابدأ المحاضرة</span>
-  </a>
+   <div class="meta"><span class="mp">لم تبدأ بعد</span><span class="mb"></span></div><div class="pb"><i></i></div>
+   <div class="acts"><a class="go" href="lecture3.html">ابدأ المحاضرة</a></div>
+  </article>
  </main>
 
+ </div>
+ <div class="pg pg-quiz off noprint" id="pg-quiz">
+  <h2 class="page-h">دربي نفسك ع الاسئلة هنا ي ضكتورة</h2>
+ <section class="tools one">
+  <div class="panel" aria-live="polite">
+   <h3>تحدّي سريع (5 أسئلة)</h3>
+   <div id="qz"></div>
+  </div>
+ </section>
+ </div>
+ <div class="pg pg-ref off noprint" id="pg-ref">
+ <h2 class="page-h">راجعي ع شوية حاجات مهمة!!!!! بحبك</h2>
+ <section class="tools one">
+  <div class="panel">
+   <div class="tabs" role="tablist" id="rtabs">
+    <button class="tab" role="tab" aria-selected="true" data-t="ppt">رواسب AgNO<sub>3</sub></button>
+    <button class="tab" role="tab" aria-selected="false" data-t="gas">الغازات</button>
+    <button class="tab" role="tab" aria-selected="false" data-t="grp">المجموعات</button>
+   </div>
+   <div class="chips" id="rview"></div>
+  </div>
+ </section>
+ </div>
+ <div class="pg pg-sums off" id="pg-sums">
+ <h2 class="page-h noprint">جداول الملخصات هنا ي قمرر</h2>
+ <div class="tabs noprint" role="tablist" id="stabs">
+  <button class="tab" role="tab" aria-selected="true" data-s="all">الكل</button>
+  <button class="tab" role="tab" aria-selected="false" data-s="s1">المحاضرة ١</button>
+  <button class="tab" role="tab" aria-selected="false" data-s="s2">المحاضرة ٢</button>
+  <button class="tab" role="tab" aria-selected="false" data-s="s3">المحاضرة ٣</button>
+  <button class="btn" style="padding:3px 18px;margin-right:auto" type="button" onclick="pr('pall')">اطبع الثلاثة</button>
+ </div>
+ <div class="empty noprint" id="sempty">مفيش نتائج للبحث في الجداول</div>
  <div class="sums" aria-label="جداول الملخصات">
-  <div class="sum-h noprint" style="justify-content:center;gap:16px"><h3 style="text-align:center">ملخص الملخص: جداول جاهزة للطباعة</h3><button class="pbtn" style="--ac:var(--teal)" type="button" onclick="pr('pall')">اطبع الثلاثة</button></div>
   <section class="sum" id="s1" style="--ac:var(--teal)">
    <div class="sum-h"><h3>ملخص المحاضرة الأولى<small>الكربونات والبيكربونات والكبريتيت والثيوكبريتات</small></h3>
    <button class="pbtn noprint" type="button" onclick="pr('p1')">اطبع الملخص</button></div>
@@ -128,7 +359,7 @@ table.st2{width:100%;border-collapse:collapse;min-width:640px;font-size:clamp(13
   <section class="sum" id="s3" style="--ac:var(--violet)">
    <div class="sum-h"><h3>ملخص المحاضرة الثالثة<small>مجموعة H2SO4 المركز ومجموعة BaCl2</small></h3>
    <button class="pbtn noprint" type="button" onclick="pr('p3')">اطبع الملخص</button></div>
-   <div class="tw"><table class="st2"><caption>مجموعة H2SO4 المركز (4 أنيونات)</caption><thead><tr><th scope="col">الأنيون</th><th scope="col">التجربة الأساسية (ملح صلب + H2SO4 المركز + تسخين)</th><th scope="col">الغاز / الملاحظة</th><th scope="col">التجربة التأكيدية</th><th scope="col">النتيجة</th></tr></thead><tbody><tr><th scope="row">الكلوريد <span class="e">Cl<sup>-</sup></span></th><td>H2SO4 المركز</td><td>غاز <span class="e">HCl</span>، وبتقريب ساق مبللة بالنشادر تتكوّن أبخرة بيضاء من <span class="e">NH<sub>4</sub>Cl</span></td><td>محلول <span class="e">AgNO<sub>3</sub></span></td><td>راسب أبيض يذوب في النشادر ويصير بنفسجيًا بالضوء</td></tr><tr><th scope="row">البروميد <span class="e">Br<sup>-</sup></span></th><td>H2SO4 المركز</td><td>أبخرة <span class="e">Br<sub>2</sub></span> بنية محمرة + <span class="e">SO<sub>2</sub></span> (يتأكسد البروميد)</td><td>محلول <span class="e">AgNO<sub>3</sub></span></td><td>راسب أبيض مصفر يذوب جزئيًا في النشادر ويغمق بالضوء</td></tr><tr><th scope="row">اليوديد <span class="e">I<sup>-</sup></span></th><td>H2SO4 المركز</td><td>أبخرة <span class="e">I<sub>2</sub></span> بنفسجية + <span class="e">SO<sub>2</sub></span> (يتأكسد اليوديد، وتصفرّ ورقة النشا)</td><td>محلول <span class="e">AgNO<sub>3</sub></span></td><td>راسب أصفر لا يذوب في النشادر</td></tr><tr><th scope="row">النيترات <span class="e">NO<sub>3</sub><sup>-</sup></span></th><td>H2SO4 المركز (+ خراطة نحاس)</td><td>أبخرة <span class="e">NO<sub>2</sub></span> بنية محمرة تزداد كثافتها بإضافة النحاس</td><td>محلول <span class="e">FeSO<sub>4</sub></span> حديث التحضير + قطرات H2SO4 المركز على جدار الأنبوبة</td><td>حلقة بنية (مركب الحلقة البنية)</td></tr></tbody></table></div>
+   <div class="tw"><table class="st2"><caption>مجموعة H2SO4 المركز (4 أنيونات)</caption><thead><tr><th scope="col">الأنيون</th><th scope="col">التجربة الأساسية (ملح صلب + H2SO4 المركز + تسخين)</th><th scope="col">الغاز / الملاحظة</th><th scope="col">التجربة التأكيدية</th><th scope="col">النتيجة</th></tr></thead><tbody><tr><th scope="row">الكلوريد <span class="e">Cl<sup>-</sup></span></th><td>H2SO4 المركز</td><td>غاز <span class="e">HCl</span>، وبتقريب ساق مبللة بالنشادر تتكوّن أبخرة بيضاء من <span class="e">NH<sub>4</sub>Cl</span></td><td>محلول <span class="e">AgNO<sub>3</sub></span></td><td>راسب أبيض يذوب في النشادر ويصير بنفسجيًا بالضوء</td></tr><tr><th scope="row">البروميد <span class="e">Br<sup>-</sup></span></th><td>H2SO4 المركز</td><td>أبخرة <span class="e">Br<sub>2</sub></span> بنية محمرة + <span class="e">SO<sub>2</sub></span> (يتأكسد البروميد)</td><td>محلول <span class="e">AgNO<sub>3</sub></span></td><td>راسب أبيض مصفر يذوب جزئيًا في النشادر ويغمق بالضوء</td></tr><tr><th scope="row">اليوديد <span class="e">I<sup>-</sup></span></th><td>H2SO4 المركز</td><td>أبخرة <span class="e">I<sub>2</sub></span> بنفسجية + <span class="e">SO<sub>2</sub></span> (يتأكسد اليوديد، وتزرقّ ورقة النشا)</td><td>محلول <span class="e">AgNO<sub>3</sub></span></td><td>راسب أصفر لا يذوب في النشادر</td></tr><tr><th scope="row">النيترات <span class="e">NO<sub>3</sub><sup>-</sup></span></th><td>H2SO4 المركز (+ خراطة نحاس)</td><td>أبخرة <span class="e">NO<sub>2</sub></span> بنية محمرة تزداد كثافتها بإضافة النحاس</td><td>محلول <span class="e">FeSO<sub>4</sub></span> حديث التحضير + قطرات H2SO4 المركز على جدار الأنبوبة</td><td>حلقة بنية (مركب الحلقة البنية)</td></tr></tbody></table></div>
 <div class="tw"><table class="st2"><caption>مجموعة BaCl2 (أنيونان من الأحماض عالية الثبات)</caption><thead><tr><th scope="col">الأنيون</th><th scope="col">التجربة الأساسية (محلول الملح + BaCl2)</th><th scope="col">التمييز بحمض HCl المخفف</th><th scope="col">التجربة التأكيدية</th><th scope="col">النتيجة</th></tr></thead><tbody><tr><th scope="row">الكبريتات <span class="e">SO<sub>4</sub><sup>2-</sup></span></th><td>راسب أبيض من <span class="e">BaSO<sub>4</sub></span></td><td>لا يذوب</td><td>محلول أسيتات الرصاص II</td><td>راسب أبيض</td></tr><tr><th scope="row">الفوسفات <span class="e">PO<sub>4</sub><sup>3-</sup></span></th><td>راسب أبيض من <span class="e">Ba<sub>3</sub>(PO<sub>4</sub>)<sub>2</sub></span></td><td>يذوب</td><td>محلول <span class="e">AgNO<sub>3</sub></span></td><td>راسب أصفر يذوب في النشادر</td></tr></tbody></table></div>
 <div class="tip"><b>القاعدة:</b> H2SO4 المركز أكثر ثباتًا من أحماض الكلوريد والبروميد واليوديد والنيتريك (متوسطة الثبات)، فيطردها على هيئة غازات عند التسخين. وهو يصلح للكشف عن <b>4 + 6 = 10</b> أنيونات (4 من مجموعته + 6 من مجموعة HCl المخفف).<br>
 <b>الكلوريد لا يتأكسد</b> بالحمض لصغر نصف قطره، أما البروميد واليوديد فيتأكسدان.<br>
@@ -139,10 +370,121 @@ table.st2{width:100%;border-collapse:collapse;min-width:640px;font-size:clamp(13
 <b>تسخين الحلقة البنية بشدة:</b> راسب أحمر <span class="e">Fe<sub>2</sub>O<sub>3</sub></span> + غازات <span class="e">SO<sub>2</sub></span> و <span class="e">SO<sub>3</sub></span> و <span class="e">NO<sub>2</sub></span>.</div>
   </section>
  </div>
-<script>
-function pr(c){document.body.className=c;window.print()}
-window.addEventListener('afterprint',function(){document.body.className=''});
-</script>
+ </div>
+ <footer class="noprint">بالتوفيق ♥ — Dr / Mohammed<br><button class="tab" id="rst" style="margin-top:8px">مسح التقدم المحفوظ</button></footer>
 </div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(function(){
+var $=function(s,r){return(r||document).querySelector(s)},$$=function(s,r){return[].slice.call((r||document).querySelectorAll(s))};
+var ls={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}},del:function(k){try{localStorage.removeItem(k)}catch(e){}}};
+function toast(m){var t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(function(){t.style.display='none'},2200)}
+/* theme + font size (same 'th' key as lectures) */
+function setTheme(l){document.body.classList.toggle('dark',!l);ls.set('th',l?'l':'d')}
+setTheme(ls.get('th')!=='d');
+$('#th').onclick=function(){setTheme(document.body.classList.contains('dark'))};
+var fs=parseFloat(ls.get('ec_fs'))||1;
+function setFs(v){fs=Math.max(.85,Math.min(1.4,v));document.documentElement.style.setProperty('--fs',fs);ls.set('ec_fs',fs)}
+setFs(fs);$('#fsp').onclick=function(){setFs(fs+.1)};$('#fsm').onclick=function(){setFs(fs-.1)};
+/* progress */
+var N={1:56,2:36,3:54},tot=0,done=0,last=null;
+$$('#cards .card').forEach(function(c){
+ var k=c.dataset.k,n=+ls.get('ec_'+k+'_n')||N[k],mx=+ls.get('ec_'+k+'_max')||0,pos=+ls.get('ec_'+k+'_pos')||0,t=+ls.get('ec_'+k+'_t')||0;
+ var pct=Math.min(100,Math.round(mx/n*100));tot+=100;done+=pct;
+ $('.pb i',c).style.width=pct+'%';
+ $('.mp',c).textContent=mx?('وصلت لشريحة '+mx+' من '+n):'لم تبدأ بعد';
+ $('.mb',c).textContent=mx?pct+'%':'';
+ var best=ls.get('ec_'+k+'_best'),bt=ls.get('ec_'+k+'_tot');
+ if(best!==null&&bt){var b=$('.badge',c);b.hidden=false;b.textContent='أفضل نتيجة '+best+'/'+bt}
+ if(mx&&pos>1&&pos<n){var a=document.createElement('a');a.className='go alt';a.href='lecture'+k+'.html#s='+pos;a.textContent='كمّل من الشريحة '+pos;$('.acts',c).appendChild(a);if(!last||t>last.t)last={k:k,pos:pos,t:t}}
+});
+var p=Math.round(done/tot*100);$('#ring').style.setProperty('--p',p);$('#rp').textContent=p+'%';
+if(last){var cb=$('#cont');cb.href='lecture'+last.k+'.html#s='+last.pos;cb.textContent='كمّل من المحاضرة '+last.k+' (شريحة '+last.pos+')'}
+$('#rst').onclick=function(){if(confirm('تمسح التقدم ونتايج الاختبارات المحفوظة؟')){Object.keys(localStorage).filter(function(k){return k.indexOf('ec_')===0&&k!=='ec_fs'}).forEach(ls.del);location.reload()}};
+/* exam countdown (fixed date: 26/6/2027) */
+var EXAM=new Date(2027,5,26,0,0,0),START=new Date(2026,9,1,0,0,0);
+function pad(n){return n<10?'0'+n:''+n}
+function tick(){var now=new Date(),ms=EXAM-now;
+ if(ms<=0){$('#cd-d').textContent='0';$('#cd-h').textContent=$('#cd-m').textContent=$('#cd-s').textContent='00';$('#cd-bar').style.width='100%';$('#cd-note').textContent='النهاردة يوم الامتحان — بالتوفيق يا بطل 🤍';return}
+ var d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4),sec=Math.floor(ms%6e4/1e3);
+ $('#cd-d').textContent=d;$('#cd-h').textContent=pad(h);$('#cd-m').textContent=pad(m);$('#cd-s').textContent=pad(sec);
+ var pct=Math.max(0,Math.min(100,(now-START)/(EXAM-START)*100));$('#cd-bar').style.width=pct.toFixed(1)+'%';
+ $('#cd-note').textContent='عدّى '+Math.round(pct)+'% من الوقت — فاضل حوالي '+Math.ceil(d/7)+' أسبوع'}
+tick();setInterval(tick,1000);
+/* quick reference */
+var R={
+ppt:[['كبريتيد','S²⁻','Ag2S','أسود في الحال','k','var(--coral)'],['كبريتيت','SO₃²⁻','Ag2SO3','أبيض يسوَد بالتسخين','w','var(--violet)'],['كلوريد','Cl⁻','AgCl','أبيض، يذوب في النشادر، يبنفسج بالضوء','w','var(--teal)'],['بروميد','Br⁻','AgBr','أبيض مصفر، يذوب جزئيًا','y','var(--amber)'],['يوديد','I⁻','AgI','أصفر، لا يذوب في النشادر','y','var(--amber)'],['فوسفات','PO₄³⁻','Ag3PO4','أصفر، يذوب في النشادر وHNO3','y','var(--blue)']],
+gas:[['CO2','عديم اللون والرائحة','يعكّر ماء الجير','w'],['SO2','نفّاذ الرائحة','يخضّر ورقة K2Cr2O7 المحمضة ويزيل لون البرمنجنات','o'],['H2S','بيض فاسد','يسوّد ورقة أسيتات الرصاص II','k'],['NO','عديم اللون','يتحول لبني محمر NO2 عند فوهة الأنبوبة','b'],['Br2','أبخرة بنية محمرة','يصفّر ورقة النشا','o'],['I2','أبخرة بنفسجية','يزرّق ورقة النشا','v'],['HCl','عديم اللون','دخان أبيض مع ساق النشادر (NH4Cl)','w']],
+grp:[['HCl المخفف (6)','الكربونات، البيكربونات، الكبريتيت، الثيوكبريتات، الكبريتيد، النيتريت','var(--teal)'],['H2SO4 المركز (4)','الكلوريد، البروميد، اليوديد، النيترات','var(--amber)'],['BaCl2 (2)','الكبريتات، الفوسفات','var(--violet)']]};
+function fm(s){return s.replace(/([A-Za-z\)])(\d+)/g,'$1<sub>$2</sub>')}
+function rview(t){var h='';
+ if(t==='ppt')R.ppt.forEach(function(r){h+='<div class="row" style="--c:'+r[5]+'"><div class="nm">'+r[0]+' <span class="e">'+r[1]+'</span><small><span class="e">'+fm(r[2])+'</span></small></div><span class="pill '+r[4]+'">'+r[3]+'</span></div>'});
+ if(t==='gas')R.gas.forEach(function(r){h+='<div class="row"><div class="nm"><span class="e">'+fm(r[0])+'</span> <small>'+r[1]+'</small></div><span class="pill" style="white-space:normal;text-align:center">'+fm(r[2]).replace(/(<sub>\d+<\/sub>)/g,'$1')+'</span></div>'});
+ if(t==='grp')R.grp.forEach(function(r){h+='<div class="row" style="--c:'+r[2]+'"><div class="nm"><span class="e">'+fm(r[0])+'</span><small>'+r[1]+'</small></div></div>'});
+ $('#rview').innerHTML=h}
+rview('ppt');
+$$('#rtabs .tab').forEach(function(b){b.onclick=function(){$$('#rtabs .tab').forEach(function(x){x.setAttribute('aria-selected',x===b)});rview(b.dataset.t)}});
+/* quick quiz (all answers come from the summary tables) */
+var QB=[
+['كربونات + MgSO4 على البارد ينتج؟',['راسب أبيض في الحال','لا راسب','راسب أسود','راسب أصفر'],0,'الكربونات تعطي راسب أبيض في الحال، أما البيكربونات فلا راسب إلا بالتسخين.'],
+['البيكربونات + MgSO4 يظهر الراسب الأبيض عند؟',['البارد','التسخين','التبريد','لا يظهر أبدًا'],1,'بيكربونات الماغنسيوم ذائبة وتتحلل بالحرارة فيظهر الراسب.'],
+['الغاز الذي يخضّر ورقة K2Cr2O7 المحمضة؟',['CO2','H2S','SO2','NO'],2,'SO2 نفّاذ الرائحة ويخضّر ورقة ثنائي الكرومات.'],
+['الثيوكبريتات + HCl المخفف ينتج غاز SO2 مع؟',['راسب أبيض','راسب كبريت أصفر','راسب أسود','لا شيء'],1,'تظهر عكارة صفراء من الكبريت.'],
+['الكبريتيد + AgNO3 يعطي؟',['أبيض يسوَد بالتسخين','أصفر','أسود في الحال','أبيض مصفر'],2,'Ag2S أسود في الحال، والكبريتيت يعطي أبيض يسوَد بالتسخين.'],
+['الغاز الذي يسوّد ورقة أسيتات الرصاص II؟',['SO2','H2S','CO2','NO2'],1,'H2S كريه الرائحة (بيض فاسد).'],
+['النيتريت + KMnO4 المحمضة يحدث؟',['يزول اللون البنفسجي','يتكوّن راسب أبيض','يتكوّن غاز أصفر','لا يحدث شيء'],0,'النيتريت يختزل البرمنجنات فيزول لونها.'],
+['راسب AgI لونه؟',['أبيض','أبيض مصفر','أسود','أصفر لا يذوب في النشادر'],3,'AgI أصفر ولا يذوب في النشادر.'],
+['بخار اليود I2 لونه وتأثيره على ورقة النشا؟',['بنفسجي ويزرّق الورقة','بني ويصفّر الورقة','أخضر ويبيّضها','عديم اللون'],0,'اليود يزرّق النشا، أما البروم فيصفّرها.'],
+['الحلقة البنية تكشف عن أنيون؟',['الكلوريد','الكبريتات','النيترات','الفوسفات'],2,'تُستخدم FeSO4 حديث التحضير مع H2SO4 المركز على جدار الأنبوبة.'],
+['راسب أبيض مع BaCl2 لا يذوب في HCl هو؟',['الفوسفات','الكبريتات','الكربونات','الكلوريد'],1,'BaSO4 لا يذوب في HCl، أما Ba3(PO4)2 فيذوب.'],
+['Ag3PO4 لونه وذوبانه؟',['أصفر ويذوب في النشادر','أبيض لا يذوب','أسود','أصفر لا يذوب'],0,'فوسفات الفضة صفراء وتذوب في النشادر وحمض النيتريك.'],
+['عدد أنيونات مجموعة HCl المخفف؟',['4','6','2','10'],1,'ستة: كربونات، بيكربونات، كبريتيت، ثيوكبريتات، كبريتيد، نيتريت.'],
+['أبخرة بنية محمرة مع Br2 تظهر عند تسخين البروميد مع؟',['HCl المخفف','H2SO4 المركز','NaOH','ماء'],1,'H2SO4 المركز يؤكسد البروميد إلى Br2.'],
+['الكلوريد مع H2SO4 المركز يعطي غاز HCl وعند تقريب ساق النشادر؟',['أبخرة بيضاء NH4Cl','لون بنفسجي','راسب أسود','لا شيء'],0,'تتكوّن أبخرة بيضاء من كلوريد الأمونيوم.']];
+var qs,qi,qsc;
+function shuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function qstart(){qs=shuf(QB).slice(0,5);qi=0;qsc=0;qshow()}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function qshow(){var q=qs[qi],box=$('#qz');
+ if(!q){var best=+ls.get('ec_quick_best')||0;if(qsc>best){ls.set('ec_quick_best',qsc);best=qsc}
+  box.innerHTML='<div class="q-t">النتيجة: '+qsc+' / '+qs.length+'</div><div class="q-ex">'+(qsc===5?'ممتاز! إنت جاهز.':qsc>=3?'كويس، راجع الأسئلة اللي غلطت فيها.':'راجع المحاضرات وحاول تاني.')+' أفضل نتيجة ليك: '+best+' / 5</div><div class="q-f"><button class="btn" id="qr">جولة جديدة</button></div>';$('#qr').onclick=qstart;return}
+ var order=shuf([0,1,2,3]);
+ box.innerHTML='<div class="q-t">'+(qi+1)+'/'+qs.length+' — '+fm(esc(q[0])).replace(/<sub>(\d+)<\/sub>/g,'<sub>$1</sub>')+'</div><div class="q-o">'+order.map(function(i){return'<button data-i="'+i+'">'+fm(esc(q[1][i]))+'</button>'}).join('')+'</div><div class="q-ex" id="qex"></div><div class="q-f"><span>النتيجة: '+qsc+'</span><button class="btn alt" id="qn" hidden>التالي</button></div>';
+ $$('.q-o button',box).forEach(function(b){b.onclick=function(){var ok=+b.dataset.i===q[2];if(ok)qsc++;$$('.q-o button',box).forEach(function(x){x.disabled=true;if(+x.dataset.i===q[2])x.classList.add('ok')});if(!ok)b.classList.add('no');$('#qex').innerHTML=(ok?'إجابة صح. ':'إجابة غلط. ')+fm(esc(q[3]));var n=$('#qn');n.hidden=false;n.textContent=qi+1<qs.length?'التالي':'شوف النتيجة';n.onclick=function(){qi++;qshow()};n.focus()}})}
+qstart();
+$$('table.st2').forEach(function(t){var h=$$('thead th',t).map(function(x){return x.textContent.trim()});$$('tbody tr',t).forEach(function(r){$$('td',r).forEach(function(c,i){c.setAttribute('data-l',h[i+1]||'')})})});
+/* pages */
+var PG=['lec','sums','quiz','ref'];
+function showPage(p,noHash){if(PG.indexOf(p)<0)p='lec';
+ PG.forEach(function(x){var e=$('#pg-'+x);e.classList.toggle('off',x!==p)});
+ $$('#pages .pg-b').forEach(function(b){b.setAttribute('aria-selected',b.dataset.p===p)});
+ if(!noHash)try{history.replaceState(null,'','#'+p)}catch(e){}
+ window.scrollTo(0,0)}
+$$('#pages .pg-b').forEach(function(b){b.onclick=function(){showPage(b.dataset.p)}});
+$$('[data-go]').forEach(function(b){b.onclick=function(){showPage(b.dataset.go)}});
+showPage((location.hash||'').replace('#','').split('=')[0],true);
+addEventListener('hashchange',function(){showPage((location.hash||'').replace('#','').split('=')[0],true)});
+/* summaries: tabs + search */
+function showSum(w){$$('#stabs .tab').forEach(function(x){x.setAttribute('aria-selected',x.dataset.s===w)});$$('.sum').forEach(function(s){s.classList.toggle('off',w!=='all'&&s.id!==w)})}
+$$('#stabs .tab').forEach(function(b){b.onclick=function(){showSum(b.dataset.s)}});
+function pr(c){document.body.className=document.body.className.replace(/\bp(all|\d)\b/g,'')+' '+c;window.print()}
+window.pr=pr;
+addEventListener('afterprint',function(){document.body.className=document.body.className.replace(/\bp(all|\d)\b/g,'').trim()});
+var qi_=$('#q');
+function clearMarks(){$$('mark').forEach(function(m){m.replaceWith(document.createTextNode(m.textContent))});$$('.sum').forEach(function(s){s.normalize()})}
+function search(){var v=qi_.value.trim().toLowerCase();clearMarks();
+ $$('#cards .card').forEach(function(c){var hit=!v||(c.textContent+' '+c.dataset.s).toLowerCase().indexOf(v)>-1;c.classList.toggle('hide',!hit)});
+ var any=false;$$('.sum').forEach(function(s){var h=0;$$('tbody tr',s).forEach(function(r){var m=!v||r.textContent.toLowerCase().indexOf(v)>-1;r.classList.toggle('miss',!m);if(m)h++});
+  $$('.tip',s).forEach(function(t){var m=!v||t.textContent.toLowerCase().indexOf(v)>-1;if(m&&v)h++});
+  s.classList.toggle('off',!!v&&!h);if(h||!v)any=true;
+  if(v){var w=document.createTreeWalker(s,NodeFilter.SHOW_TEXT),L=[];while(w.nextNode())L.push(w.currentNode);
+   L.forEach(function(n){var i=n.nodeValue.toLowerCase().indexOf(v);if(i<0||n.parentElement.closest('th'))return;var r=n.splitText(i);r.splitText(v.length);var m=document.createElement('mark');r.parentNode.replaceChild(m,r);m.appendChild(r)})}});
+ if(!v){showSum($('#stabs .tab[aria-selected=true]').dataset.s)}
+ $('#sempty').style.display=(v&&!any)?'block':'none';
+ if(v){var ch=$$('#cards .card:not(.hide)').length;showPage(ch?'lec':(any?'sums':'lec'),true)}}
+qi_.addEventListener('input',search);
+addEventListener('keydown',function(e){if(e.key==='/'&&!/input|textarea/i.test((e.target||{}).tagName||'')){e.preventDefault();qi_.focus()}else if(e.key==='Escape'&&document.activeElement===qi_){qi_.value='';search();qi_.blur()}});
+})();
+</script>
 </body>
 </html>
