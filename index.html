@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="animate.min.css">
+<link rel="stylesheet" href="exam-styles.css">
 <style>
 :root{--bg:#f4f8fc;--bg2:#e6f0f8;--card:#fff;--line:#d5e1ee;--soft:#eef4fa;--ink:#10263d;--mut:#586e86;--teal:#0f766e;--amber:#b45309;--violet:#4f46e5;--coral:#be123c;--green:#15803d;--blue:#0369a1;--onac:#fff;--shadow:0 8px 24px rgba(15,40,70,.09);--fs:1}
 body.dark{--bg:#07162b;--bg2:#0d2a4a;--card:rgba(255,255,255,.07);--line:rgba(255,255,255,.16);--soft:rgba(255,255,255,.07);--ink:#eaf4ff;--mut:#9fb6d0;--teal:#19d3bd;--amber:#ffc857;--violet:#9b8cff;--coral:#ff6b6b;--green:#4ade80;--blue:#4cc3ff;--onac:#06202a;--shadow:0 10px 30px rgba(0,0,0,.28)}
@@ -162,11 +163,13 @@ footer{margin-top:40px;text-align:center;color:var(--mut);font-size:.9rem}
  body.p1 #s1,body.p2 #s2,body.p3 #s3{display:block!important}
  body.pall .sum{display:block!important;break-after:page}
  .sum-h h3{color:#000;font-size:20px;margin-bottom:6px}
- .st2{min-width:0;font-size:9.5pt;line-height:1.3}
- .st2 th,.st2 td{border:1px solid #333;color:#000;padding:3px 5px;background:#fff!important}
- .st2 thead th{background:#d9d9d9!important;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
- .st2 tbody th{background:#efefef!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
- .st2 caption{color:#000}
+ .st2{min-width:0;font-size:9.5pt;line-height:1.45;page-break-inside:auto}
+ .st2 tr{page-break-inside:avoid;break-inside:avoid}
+ .st2 th,.st2 td{border:1px solid #888!important;color:#000!important;padding:5px 8px!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .st2 thead th{background:var(--ac)!important;color:var(--onac)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .st2 tbody th{background:var(--soft)!important;color:var(--ink)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .st2 tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 60%,transparent)!important;color:var(--ink)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .st2 caption{color:var(--ac)}
  .tip{color:#000;font-size:9pt;line-height:1.45;margin-top:4px}.tip b{color:#000}
  .st2 tr{break-inside:avoid}
  #s3{zoom:.82}
@@ -228,6 +231,7 @@ footer{margin-top:40px;text-align:center;color:var(--mut);font-size:.9rem}
 <nav class="pages noprint" aria-label="أقسام الموقع"><div class="pages-in" role="tablist" id="pages">
  <button class="pg-b" role="tab" data-p="lec" aria-selected="true">المحاضرات</button>
  <button class="pg-b" role="tab" data-p="sums" aria-selected="false">الجداول</button>
+ <button class="pg-b" role="tab" data-p="exam" aria-selected="false">الامتحانات</button>
  <button class="pg-b" role="tab" data-p="quiz" aria-selected="false">تحدّي سريع</button>
  <button class="pg-b" role="tab" data-p="ref" aria-selected="false">مرجع سريع</button>
 </div></nav>
@@ -242,6 +246,7 @@ footer{margin-top:40px;text-align:center;color:var(--mut);font-size:.9rem}
     <a class="btn" id="cont" href="lecture1.html">ابدأ من المحاضرة الأولى</a>
     <button class="btn alt" type="button" data-go="quiz">تحدّي سريع</button>
     <button class="btn alt" type="button" data-go="sums">الجداول</button>
+    <button class="btn alt" type="button" data-go="exam">الامتحانات</button>
    </div>
   </div>
   <div class="stats noprint animate__animated animate__zoomIn" style="--animate-delay:.4s">
@@ -290,6 +295,11 @@ footer{margin-top:40px;text-align:center;color:var(--mut);font-size:.9rem}
  </main>
 
  </div>
+<div class="pg pg-exam off noprint" id="pg-exam">
+  <h2 class="page-h">امتحاناتك يا سندوستي</h2>
+  <p class="sub" style="font-size:1rem;margin-bottom:14px">اختاري امتحانك، ركزي، وراجعي نتيجتك بعد التسليم.</p>
+  <div id="exam-root"></div>
+</div>
  <div class="pg pg-quiz off noprint" id="pg-quiz">
   <h2 class="page-h">دربي نفسك ع الاسئلة هنا ي ضكتورة</h2>
  <section class="tools one">
@@ -443,7 +453,7 @@ function qshow(){var q=qs[qi],box=$('#qz');
 qstart();
 $$('table.st2').forEach(function(t){var h=$$('thead th',t).map(function(x){return x.textContent.trim()});$$('tbody tr',t).forEach(function(r){$$('td',r).forEach(function(c,i){c.setAttribute('data-l',h[i+1]||'')})})});
 /* pages */
-var PG=['lec','sums','quiz','ref'];
+var PG=['lec','sums','quiz','ref','exam'];
 function showPage(p,noHash){if(PG.indexOf(p)<0)p='lec';
  PG.forEach(function(x){var e=$('#pg-'+x);e.classList.toggle('off',x!==p)});
  $$('#pages .pg-b').forEach(function(b){b.setAttribute('aria-selected',b.dataset.p===p)});
@@ -475,5 +485,7 @@ qi_.addEventListener('input',search);
 addEventListener('keydown',function(e){if(e.key==='/'&&!/input|textarea/i.test((e.target||{}).tagName||'')){e.preventDefault();qi_.focus()}else if(e.key==='Escape'&&document.activeElement===qi_){qi_.value='';search();qi_.blur()}});
 })();
 </script>
+<script src="Data/exams.js"></script>
+<script src="exam-engine.js"></script>
 </body>
 </html>

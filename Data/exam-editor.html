@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f766e">
+<title>محرر الامتحانات | Eto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f8fc;--bg2:#e6f0f8;--card:#fff;--line:#d5e1ee;--soft:#eef4fa;--ink:#10263d;--mut:#586e86;--teal:#0f766e;--amber:#b45309;--violet:#4f46e5;--coral:#be123c;--green:#15803d;--blue:#0369a1;--shadow:0 8px 24px rgba(15,40,70,.09)}
+body.dark{--bg:#07162b;--bg2:#0d2a4a;--card:rgba(255,255,255,.07);--line:rgba(255,255,255,.16);--soft:rgba(255,255,255,.07);--ink:#eaf4ff;--mut:#9fb6d0;--teal:#19d3bd;--amber:#ffc857;--violet:#9b8cff;--coral:#ff6b6b;--green:#4ade80;--blue:#4cc3ff;--shadow:0 10px 30px rgba(0,0,0,.28)}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:'Cairo','Segoe UI',Tahoma,sans-serif;color:var(--ink);background:radial-gradient(900px 520px at 100% 0%,color-mix(in srgb,var(--teal) 14%,transparent),transparent 62%),linear-gradient(160deg,var(--bg),var(--bg2));background-attachment:fixed;line-height:1.6}button,input,textarea,select{font:inherit;color:inherit}button{cursor:pointer}.top{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.top-in{max-width:1250px;margin:auto;padding:12px 20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}.brand{font-size:1.1rem;font-weight:900;margin-left:auto}.brand small{display:block;font-size:.75rem;color:var(--mut);font-weight:600}.btn{border:0;border-radius:13px;background:var(--teal);color:#fff;padding:9px 16px;font-weight:800}.btn.alt{background:var(--card);color:var(--ink);border:1px solid var(--line)}.btn.danger{background:#be123c;color:#fff}.btn:disabled{opacity:.45;cursor:not-allowed}.wrap{max-width:1250px;margin:auto;padding:22px 20px 60px}.intro{margin:8px 0 20px}.intro h1{font-size:clamp(1.6rem,4vw,2.3rem);margin:0 0 4px}.intro p{color:var(--mut);margin:0}.notice{border:1px solid color-mix(in srgb,var(--amber) 45%,var(--line));background:color-mix(in srgb,var(--amber) 10%,var(--card));border-radius:14px;padding:10px 14px;margin:14px 0;color:var(--ink)}.layout{display:grid;grid-template-columns:minmax(240px,300px) minmax(0,1fr);gap:18px;align-items:start}.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:16px}.list-head,.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.list-head h2,.section-head h2{font-size:1.05rem;margin:0}.exam-list{display:grid;gap:8px}.exam-choice{width:100%;text-align:right;background:var(--soft);border:1px solid var(--line);border-radius:13px;padding:10px 12px}.exam-choice.active{border-color:var(--teal);box-shadow:inset -4px 0 var(--teal)}.exam-choice b{display:block}.exam-choice small{color:var(--mut)}.empty{color:var(--mut);text-align:center;padding:25px 8px}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:grid;gap:5px;min-width:0}.field.full{grid-column:1/-1}.field label{font-weight:800;font-size:.88rem}.field input,.field textarea,.field select,.json-area{width:100%;border:1px solid var(--line);border-radius:11px;background:var(--bg);padding:9px 11px;outline:none}.field textarea{min-height:82px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus,.json-area:focus{border-color:var(--teal);box-shadow:0 0 0 3px color-mix(in srgb,var(--teal) 15%,transparent)}.checks{display:flex;flex-wrap:wrap;gap:8px 18px;padding:8px 0}.checks label{display:flex;align-items:center;gap:7px;font-weight:700;font-size:.88rem}.checks input{accent-color:var(--teal);width:17px;height:17px}.section{margin-top:18px}.question-list{display:grid;gap:12px}.question-card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card)}.question-head{display:flex;align-items:center;gap:9px;padding:10px 12px;background:var(--soft)}.question-head b{margin-left:auto}.question-head select{max-width:190px;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:5px}.question-body{padding:12px}.question-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.question-fields .field textarea{min-height:70px}.q-actions{display:flex;gap:7px}.q-actions button{border:1px solid var(--line);background:var(--card);border-radius:9px;padding:3px 9px}.help{color:var(--mut);font-size:.8rem;margin:0}.raw-panel{margin-top:16px}.raw-panel summary{cursor:pointer;font-weight:900}.json-area{min-height:260px;direction:ltr;text-align:left;font-family:Consolas,monospace;font-size:.85rem;margin-top:10px;white-space:pre;tab-size:2}.status{min-height:24px;color:var(--green);font-weight:800;margin-top:10px}.hidden{display:none!important}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);border-radius:30px;padding:8px 18px;font-weight:800;display:none;z-index:20;box-shadow:var(--shadow)}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.exam-list{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}.top-in{padding:10px 14px}.wrap{padding:16px 14px 45px}}
+@media(max-width:560px){.fields,.question-fields{grid-template-columns:1fr}.field.full{grid-column:auto}.brand{width:100%}.top-in .btn{flex:1}.question-head{flex-wrap:wrap}.question-head b{width:100%}.question-head select{flex:1;max-width:none}}
+.theme-picker{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:9px;margin-top:8px}.theme-choice{display:grid;gap:7px;text-align:right;padding:8px;border:2px solid var(--line);border-radius:13px;background:var(--card);min-width:0}.theme-choice.active{border-color:var(--teal);box-shadow:0 0 0 2px color-mix(in srgb,var(--teal) 18%,transparent)}.theme-choice strong{font-size:.83rem}.theme-swatch{height:48px;display:block;border:1px solid color-mix(in srgb,var(--sw-text) 18%,transparent);border-radius:9px;background:var(--sw-bg);padding:6px;overflow:hidden}.theme-swatch i{display:block;width:55%;height:9px;background:var(--sw-ac);border-radius:4px}.theme-swatch b{display:block;width:82%;height:9px;margin-top:5px;background:var(--sw-card);border:1px solid color-mix(in srgb,var(--sw-text) 15%,transparent);border-radius:4px}.theme-swatch small{display:block;width:43%;height:6px;margin-top:4px;background:var(--sw-soft);border-radius:4px}
+
+.preview-panel{margin-top:20px;padding:16px;border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:var(--shadow)}
+.preview-panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}.preview-panel-head h2{font-size:1.08rem;margin:0}.preview-live-label{font-size:.78rem;color:var(--green);font-weight:800}
+.preview-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}.preview-tab{border:1px solid var(--line);border-radius:30px;background:var(--soft);padding:6px 14px;font-weight:800}.preview-tab.active{background:var(--teal);border-color:var(--teal);color:#fff}
+.preview-stage{padding:clamp(10px,2vw,18px);border:1px dashed var(--line);border-radius:15px;overflow:auto;min-height:220px;transition:background .2s,color .2s}.preview-stage .exam-card,.preview-stage .exam-live,.preview-stage .exam-result{margin:0 auto;pointer-events:none}.preview-stage .exam-card{max-width:470px}.preview-stage .exam-live{max-width:100%;padding:clamp(12px,2vw,20px)}.preview-stage .exam-live-layout{grid-template-columns:170px minmax(0,1fr);gap:12px}.preview-stage .exam-side{position:static}.preview-stage .exam-nav{grid-template-columns:repeat(4,1fr)}.preview-stage .exam-result{max-width:650px}.preview-stage .exam-question{min-width:0}.preview-note{margin:10px 2px 0;color:var(--mut);font-size:.78rem}
+.preview-sample-input{display:block;width:100%;padding:10px 12px;border:1px solid var(--et-line,var(--line));border-radius:10px;background:var(--et-surface,var(--card));color:var(--et-muted,var(--mut));margin-top:8px}
+.preview-answer-placeholder{padding:10px 12px;border:1px dashed var(--et-line,var(--line));border-radius:10px;color:var(--et-muted,var(--mut));background:var(--et-soft,var(--soft));font-size:.9rem}
+@media(max-width:650px){.preview-stage .exam-live-layout{grid-template-columns:1fr}.preview-stage .exam-live-head{align-items:flex-start}.preview-stage .exam-side{order:2}.preview-stage .exam-question{order:1}.preview-stage .exam-nav{grid-template-columns:repeat(6,1fr)}}
+
+/* Organized desktop workspace: exam list | editor | live preview */
+.wrap{max-width:1900px;padding:16px clamp(10px,1.5vw,24px) 44px}
+.intro{margin:4px 0 12px}.intro h1{font-size:clamp(1.45rem,2.4vw,2rem)}
+.notice{margin:10px 0 14px;padding:8px 12px;font-size:.88rem}
+.workspace{display:grid;grid-template-columns:minmax(185px,220px) minmax(420px,1.15fr) minmax(330px,.9fr);gap:13px;align-items:start}
+.workspace>.panel,.workspace>.preview-panel{min-width:0;margin:0;border-radius:16px;padding:13px}
+.exams-sidebar{position:sticky;top:82px;max-height:calc(100vh - 98px);overflow:auto}
+.editor-panel{min-width:0}
+.preview-column{position:sticky;top:82px;max-height:calc(100vh - 98px);overflow:auto;overscroll-behavior:contain}
+.column-heading{display:flex;align-items:center;gap:10px;padding-bottom:11px;margin-bottom:12px;border-bottom:1px solid var(--line)}
+.column-heading>span{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--teal);color:#fff;font-weight:900;font-size:.84rem}
+.column-heading b{display:block;font-size:.98rem}.column-heading small{display:block;color:var(--mut);font-size:.75rem;font-weight:600}
+.exam-list{display:grid;gap:7px}.exam-choice{padding:8px 10px;border-radius:10px;line-height:1.45}.exam-choice b{font-size:.85rem}.exam-choice small{display:block;font-size:.73rem;margin-top:3px}.sidebar-help{padding-top:10px;line-height:1.7}
+#exam-editor>.section-head{margin-bottom:12px}#exam-editor>.fields{gap:9px 11px}
+#exam-editor .field label{font-size:.82rem}#exam-editor .field input,#exam-editor .field textarea,#exam-editor .field select{padding:8px 9px;font-size:.88rem}
+#exam-editor .field textarea{min-height:68px}
+#exam-editor .checks{gap:7px 13px;padding:9px 0;border-block:1px solid var(--line);margin-top:8px}
+#exam-editor .checks label{font-size:.8rem}
+#exam-editor .section{margin-top:14px}
+#exam-editor .section-head{margin-bottom:9px}
+#exam-editor .question-list{gap:9px}
+#exam-editor .question-card{border-radius:12px}
+#exam-editor .question-head{padding:8px 10px}
+#exam-editor .question-body{padding:10px}
+#exam-editor .question-fields{gap:8px}
+.theme-picker{grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:7px}
+.theme-choice{gap:5px;padding:6px;border-radius:10px;border-width:1px}
+.theme-choice strong{font-size:.72rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.theme-swatch{height:36px;padding:5px;border-radius:7px}.theme-swatch i{height:7px}.theme-swatch b{height:7px;margin-top:4px}.theme-swatch small{height:5px;margin-top:3px}
+.preview-column{padding:13px}.preview-column .column-heading{margin-bottom:10px}
+.preview-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin-bottom:9px}
+.preview-tab{padding:6px 5px;font-size:.78rem;white-space:nowrap}
+.preview-stage{padding:9px;min-height:180px;border-style:solid}
+.preview-stage .exam-card{max-width:100%;padding:13px;border-radius:14px}
+.preview-stage .exam-card h3{font-size:1rem}.preview-stage .exam-card p{font-size:.82rem}
+.preview-stage .exam-live{padding:10px;border-radius:14px}.preview-stage .exam-live-head h2{font-size:1rem}.preview-stage .exam-clock{font-size:1rem;min-width:75px;padding:5px 7px}
+.preview-stage .exam-live-layout{grid-template-columns:105px minmax(0,1fr);gap:8px}
+.preview-stage .exam-side{padding:8px}.preview-stage .exam-side>b{font-size:.75rem}.preview-stage .exam-nav{grid-template-columns:repeat(3,1fr);gap:4px}.preview-stage .exam-nav-dot{font-size:.7rem}.preview-stage .exam-side p{font-size:.68rem;margin:7px 0}.preview-stage .exam-submit-side{font-size:.68rem;padding:5px}
+.preview-stage .exam-question{padding:10px}.preview-stage .exam-question h3{font-size:.9rem;line-height:1.6}.preview-stage .exam-option{padding:7px 8px;font-size:.75rem}.preview-stage .exam-question-actions{margin-top:12px}.preview-stage .exam-question-actions button{min-width:0;font-size:.7rem;padding:6px 9px}
+.preview-stage .exam-result{padding:12px}.preview-stage .exam-score{font-size:3.2rem}.preview-stage .exam-review-item{padding:8px;font-size:.78rem}
+.preview-note{font-size:.72rem;line-height:1.6}
+.raw-panel{margin-top:14px;padding-top:10px;border-top:1px solid var(--line)}
+.status{font-size:.8rem}
+@media(max-width:1199px) and (min-width:861px){
+ .workspace{grid-template-columns:minmax(165px,185px) minmax(360px,1fr) minmax(285px,.88fr);gap:9px}
+ .workspace>.panel,.workspace>.preview-panel{padding:10px}
+ .theme-picker{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .preview-stage .exam-live-layout{grid-template-columns:1fr}
+ .preview-stage .exam-side{order:2}.preview-stage .exam-question{order:1}
+}
+@media(max-width:860px) and (min-width:601px){
+ .workspace{grid-template-columns:175px minmax(0,1fr);gap:10px}
+ .exams-sidebar{grid-row:1 / span 2;max-height:calc(100vh - 95px)}
+ .preview-column{grid-column:2;position:static;max-height:none}
+ .theme-picker{grid-template-columns:repeat(5,minmax(0,1fr))}
+}
+@media(max-width:600px){
+ .workspace{grid-template-columns:minmax(0,1fr);gap:10px}
+ .exams-sidebar,.preview-column{position:static;max-height:none;overflow:visible}
+ .exam-list{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}
+ .theme-picker{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .preview-stage .exam-live-layout{grid-template-columns:1fr}
+ .preview-stage .exam-side{order:2}.preview-stage .exam-question{order:1}
+ .preview-stage .exam-nav{grid-template-columns:repeat(6,1fr)}
+ .fields,.question-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .top-in{gap:7px}.top-in .btn{flex:1 1 auto;padding:8px 10px;font-size:.8rem}
+}
+@media(max-width:390px){.fields,.question-fields{grid-template-columns:1fr}.theme-picker{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+</style>
+<style id="embedded-exam-preview-styles">
+/* exam system */
+.exam-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:16px}
+.exam-card{display:flex;flex-direction:column;gap:10px;min-width:0;padding:18px;border:1px solid var(--line);border-top:5px solid var(--exam-ac,var(--teal));border-radius:20px;background:var(--card);box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s}
+.exam-card:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(15,40,70,.13)}
+.exam-card.solid{background:var(--exam-ac);color:#fff;border-color:transparent}.exam-card.solid p,.exam-card.solid .exam-meta,.exam-card.solid .exam-last{color:rgba(255,255,255,.88)}
+.exam-card.outline{background:transparent;border:2px solid var(--exam-ac)}
+.exam-card.gradient{background:linear-gradient(135deg,color-mix(in srgb,var(--exam-ac) 24%,var(--card)),var(--card));border-top:5px solid var(--exam-ac)}
+.exam-card-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.exam-icon{display:grid;place-items:center;min-width:42px;height:42px;padding:0 9px;border-radius:13px;background:var(--exam-ac);color:#fff;font-weight:900;font-size:1.2rem}
+.exam-status{border-radius:30px;padding:2px 11px;font-size:.78rem;font-weight:900;background:var(--soft);color:var(--mut)}.exam-status.ready{background:color-mix(in srgb,var(--green) 15%,transparent);color:var(--green)}.exam-status.done{background:color-mix(in srgb,var(--blue) 15%,transparent);color:var(--blue)}.exam-status.locked{background:color-mix(in srgb,var(--amber) 18%,transparent);color:var(--amber)}
+.exam-card h3{font-size:1.2rem;font-weight:900;line-height:1.4}.exam-card p{color:var(--mut);flex:1;min-height:1.5em}.exam-meta{display:flex;flex-wrap:wrap;gap:7px 13px;color:var(--mut);font-size:.84rem;font-weight:800}.exam-last{font-size:.9rem;color:var(--mut)}.exam-card-action{margin-top:4px}.exam-card-action .btn{width:100%;justify-content:center}.exam-card-action .btn:disabled{opacity:.55;cursor:not-allowed}
+.exam-editor-hint,.exam-empty{margin-top:18px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--mut);text-align:center}.exam-editor-hint a{color:var(--teal);font-weight:900}
+body.exam-active .bar,body.exam-active .pages,body.exam-active footer{display:none!important}body.exam-active .wrap{padding-top:14px}body.exam-active{overflow-x:hidden}
+.exam-live,.exam-result{max-width:1050px;margin:18px auto;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(14px,3vw,26px);box-shadow:var(--shadow)}.exam-live-head{display:flex;justify-content:space-between;align-items:center;gap:14px}.exam-live-kicker{color:var(--mut);font-weight:800;font-size:.9rem}.exam-live-head h2{font-size:clamp(1.25rem,3vw,1.8rem);font-weight:900;margin-top:3px}.exam-clock{direction:ltr;font-variant-numeric:tabular-nums;font-weight:900;font-size:clamp(1.2rem,4vw,1.8rem);background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:7px 14px;color:var(--coral);min-width:100px;text-align:center}
+.exam-progress{height:8px;background:var(--soft);border-radius:9px;overflow:hidden;margin:16px 0}.exam-progress i{display:block;height:100%;background:var(--teal);border-radius:9px;transition:width .2s}.exam-live-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:18px;align-items:start}.exam-side{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:13px;position:sticky;top:15px}.exam-side>b{display:block;margin-bottom:10px}.exam-nav{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.exam-nav-dot{aspect-ratio:1;border:1px solid var(--line);border-radius:9px;background:var(--card);font-weight:800}.exam-nav-dot.current{border-color:var(--teal);box-shadow:inset 0 0 0 2px var(--teal)}.exam-nav-dot.answered{background:color-mix(in srgb,var(--green) 18%,var(--card));border-color:var(--green)}.exam-side p{font-size:.82rem;color:var(--mut);font-weight:700;margin:12px 0}.exam-submit-side{width:100%;padding:8px 10px;background:var(--coral)}
+.exam-question{border:1px solid var(--line);border-radius:17px;padding:clamp(13px,2.5vw,22px);min-width:0}.exam-question-meta{display:flex;justify-content:space-between;gap:8px;color:var(--mut);font-size:.85rem;font-weight:800;margin-bottom:10px}.exam-question h3{font-size:clamp(1.1rem,2.7vw,1.45rem);font-weight:900;line-height:1.8;white-space:normal}.exam-question-image{display:block;max-width:100%;max-height:420px;object-fit:contain;border-radius:13px;margin:14px auto}.exam-answer-area{margin-top:18px}.exam-options{display:grid;gap:9px}.exam-options.two{grid-template-columns:repeat(2,minmax(0,1fr))}.exam-option{display:flex;align-items:center;gap:10px;padding:11px 13px;border:2px solid var(--line);border-radius:13px;background:var(--soft);cursor:pointer;font-weight:700;white-space:normal}.exam-option.selected{border-color:var(--teal);background:color-mix(in srgb,var(--teal) 12%,var(--soft))}.exam-option input{accent-color:var(--teal);width:18px;height:18px;flex:none}.exam-answer-label{display:block;font-weight:800;margin-bottom:7px}.exam-text-answer{width:100%;font:inherit;color:var(--ink);background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:11px 13px;outline:none}.exam-text-answer:focus,.exam-match-row select:focus{border-color:var(--teal);outline:2px solid color-mix(in srgb,var(--teal) 18%,transparent)}.exam-matching{display:grid;gap:10px}.exam-match-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:10px;padding:9px 11px;background:var(--soft);border-radius:12px;font-weight:800}.exam-match-row select{min-width:0;width:100%;font:inherit;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:8px;color:var(--ink)}.exam-order-list{display:grid;gap:8px}.exam-order-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--line);border-radius:12px;background:var(--soft);font-weight:800}.exam-order-item>div{display:flex;gap:5px}.exam-order-item button{width:34px;height:34px;border:1px solid var(--line);border-radius:9px;background:var(--card);font-weight:900}.exam-order-item button:disabled{opacity:.3;cursor:not-allowed}.exam-help{color:var(--mut);font-size:.85rem;margin-top:9px}
+.exam-question-actions,.exam-result-actions{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:22px}.exam-question-actions button{min-width:120px;justify-content:center}.exam-result{text-align:center}.exam-result-mark{display:inline-block;padding:5px 17px;border-radius:30px;font-weight:900}.exam-result-mark.pass{color:var(--green);background:color-mix(in srgb,var(--green) 15%,transparent)}.exam-result-mark.fail{color:var(--coral);background:color-mix(in srgb,var(--coral) 15%,transparent)}.exam-result h2{margin-top:12px;font-size:1.4rem}.exam-score{font-size:clamp(3rem,10vw,5rem);font-weight:900;line-height:1.2;color:var(--teal);direction:ltr}.exam-score small{font-size:.4em}.exam-result>p{color:var(--mut);font-weight:700}.exam-review{text-align:right;margin-top:24px}.exam-review h3{margin-bottom:10px}.exam-review-item{padding:12px;margin:9px 0;border:1px solid var(--line);border-radius:13px;background:var(--soft)}.exam-review-item p{margin-top:6px}.exam-review-item small{display:block;color:var(--mut);margin-top:7px}.review-ok{color:var(--green)}.review-no{color:var(--coral)}.exam-result-actions{justify-content:center}
+@media(max-width:720px){.exam-live-layout{grid-template-columns:1fr}.exam-side{position:static;order:2}.exam-question{order:1}.exam-nav{grid-template-columns:repeat(8,1fr)}.exam-side p{margin:8px 0}.exam-submit-side{width:auto}.exam-match-row{grid-template-columns:1fr}.exam-live-head{align-items:flex-start}}
+@media(max-width:420px){.exam-options.two{grid-template-columns:1fr}.exam-nav{grid-template-columns:repeat(6,1fr)}.exam-clock{min-width:86px;padding:6px 9px}}
+
+.exam-question.highlight{border-color:var(--exam-ac,var(--teal));box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--teal) 10%,transparent)}.exam-question.compact h3{font-size:1.05rem;line-height:1.55}.exam-question.compact .exam-answer-area{margin-top:10px}
+body.exam-active .exam-card-action,body.exam-active .exam-editor-hint{display:none}
+
+/* 20 selectable exam themes: card, exam screen and result screen */
+.exam-card[class*="exam-theme-"],.exam-live[class*="exam-theme-"],.exam-result[class*="exam-theme-"]{--exam-ac:var(--et-accent);--et-line:#d5e1ee;--et-radius:20px;--et-shadow:0 10px 26px rgba(15,40,70,.09);background:var(--et-surface);color:var(--et-text);border:1px solid var(--et-line);border-radius:var(--et-radius);box-shadow:var(--et-shadow);overflow:hidden}
+.exam-card[class*="exam-theme-"]{border-top:5px solid var(--et-accent)}
+.exam-live[class*="exam-theme-"]{border-top:7px solid var(--et-accent)}
+.exam-card[class*="exam-theme-"] h3,.exam-live[class*="exam-theme-"] h2,.exam-live[class*="exam-theme-"] h3,.exam-result[class*="exam-theme-"] h2,.exam-result[class*="exam-theme-"] h3{color:var(--et-text)}
+.exam-card[class*="exam-theme-"] p,.exam-card[class*="exam-theme-"] .exam-meta,.exam-card[class*="exam-theme-"] .exam-last{color:var(--et-muted,var(--mut))}
+.exam-card[class*="exam-theme-"] .exam-icon,.exam-live[class*="exam-theme-"] .btn:not(.alt),.exam-result[class*="exam-theme-"] .btn:not(.alt){background:var(--et-accent);color:#fff}
+.exam-live[class*="exam-theme-"] .exam-side,.exam-live[class*="exam-theme-"] .exam-question,.exam-result[class*="exam-theme-"] .exam-review-item{background:var(--et-soft);color:var(--et-text);border-color:var(--et-line);border-radius:calc(var(--et-radius)*.72)}
+.exam-live[class*="exam-theme-"] .exam-option,.exam-live[class*="exam-theme-"] .exam-match-row select,.exam-live[class*="exam-theme-"] .exam-order-item{background:var(--et-surface);color:var(--et-text);border-color:var(--et-line);border-radius:calc(var(--et-radius)*.55)}
+.exam-live[class*="exam-theme-"] .exam-option.selected{border-color:var(--et-accent);background:var(--et-soft)}
+.exam-live[class*="exam-theme-"] .exam-clock{background:var(--et-soft);color:var(--et-accent);border-color:var(--et-line);border-radius:calc(var(--et-radius)*.55)}
+.exam-live[class*="exam-theme-"] .exam-progress{background:var(--et-soft)}
+.exam-live[class*="exam-theme-"] .exam-progress i{background:var(--et-accent)}
+.exam-live[class*="exam-theme-"] .exam-nav-dot{background:var(--et-surface);color:var(--et-text);border-color:var(--et-line)}
+.exam-live[class*="exam-theme-"] .exam-nav-dot.current,.exam-live[class*="exam-theme-"] .exam-nav-dot.answered{border-color:var(--et-accent)}
+.exam-result[class*="exam-theme-"] .exam-score{color:var(--et-accent)}
+.exam-theme-classic{--et-accent:#0f766e;--et-surface:#fff;--et-soft:#eef4fa;--et-text:#10263d;--et-muted:#586e86;--et-line:#d5e1ee;--et-radius:20px}
+.exam-theme-ocean{--et-accent:#087ea4;--et-surface:#f9fdff;--et-soft:#d9eff7;--et-text:#123547;--et-muted:#4e7181;--et-line:#b8dce8;--et-radius:18px;--et-shadow:0 12px 25px rgba(8,126,164,.13)}
+.exam-theme-lavender{--et-accent:#7657c8;--et-surface:#fff;--et-soft:#eae0ff;--et-text:#30234f;--et-muted:#76678f;--et-line:#d8c9f4;--et-radius:28px;--et-shadow:0 12px 30px rgba(118,87,200,.14)}
+.exam-theme-mint{--et-accent:#15936b;--et-surface:#fff;--et-soft:#daf3e5;--et-text:#164b36;--et-muted:#5e8872;--et-line:#c4e7d3;--et-radius:15px;--et-shadow:0 7px 18px rgba(21,147,107,.1)}
+.exam-theme-sunset{--et-accent:#ed7c35;--et-surface:#fffaf4;--et-soft:#ffe6cf;--et-text:#633514;--et-muted:#98704d;--et-line:#f4d1ae;--et-radius:24px;--et-shadow:0 12px 28px rgba(237,124,53,.14)}
+.exam-theme-rose{--et-accent:#cf5688;--et-surface:#fffafd;--et-soft:#fbe1ec;--et-text:#54243c;--et-muted:#95667b;--et-line:#f0c6d8;--et-radius:25px;--et-shadow:0 10px 24px rgba(207,86,136,.13)}
+.exam-theme-midnight{--et-accent:#5eb8ff;--et-surface:#182944;--et-soft:#213752;--et-text:#f0f6ff;--et-muted:#a6bed8;--et-line:#35516e;--et-radius:18px;--et-shadow:0 14px 34px rgba(0,0,0,.3)}
+.exam-theme-glass{--et-accent:#4f9fb1;--et-surface:rgba(255,255,255,.78);--et-soft:rgba(255,255,255,.48);--et-text:#173b43;--et-muted:#547980;--et-line:rgba(79,159,177,.32);--et-radius:24px;--et-shadow:0 14px 34px rgba(23,59,67,.12)}
+.exam-theme-paper{--et-accent:#8b6b45;--et-surface:#fff8e9;--et-soft:#f0e1c5;--et-text:#49361f;--et-muted:#806b50;--et-line:#dfc9a5;--et-radius:8px;--et-shadow:0 6px 16px rgba(73,54,31,.1)}
+.exam-theme-neon{--et-accent:#00bfae;--et-surface:#101f25;--et-soft:#172e35;--et-text:#d8fff9;--et-muted:#8dbdb7;--et-line:#24504f;--et-radius:12px;--et-shadow:0 0 20px rgba(0,224,208,.12)}
+.exam-theme-royal{--et-accent:#8b67c8;--et-surface:#fffefd;--et-soft:#e9e0ff;--et-text:#33244e;--et-muted:#81739a;--et-line:#d8c7f1;--et-radius:16px;--et-shadow:0 8px 24px rgba(70,45,115,.14)}
+.exam-theme-forest{--et-accent:#35774b;--et-surface:#f9fff7;--et-soft:#deeadb;--et-text:#1d3824;--et-muted:#64806a;--et-line:#c8d9c3;--et-radius:18px;--et-shadow:0 9px 22px rgba(53,119,75,.11)}
+.exam-theme-coral{--et-accent:#ef625e;--et-surface:#fffaf8;--et-soft:#ffe0d9;--et-text:#5c2b27;--et-muted:#98716b;--et-line:#f4c9c1;--et-radius:22px;--et-shadow:0 10px 25px rgba(239,98,94,.12)}
+.exam-theme-sky{--et-accent:#4296dd;--et-surface:#fff;--et-soft:#dceeff;--et-text:#183a5c;--et-muted:#61809c;--et-line:#c3def5;--et-radius:18px;--et-shadow:0 10px 25px rgba(66,150,221,.12)}
+.exam-theme-mono{--et-accent:#555;--et-surface:#fff;--et-soft:#e5e5e5;--et-text:#222;--et-muted:#666;--et-line:#ccc;--et-radius:5px;--et-shadow:none}
+.exam-theme-aurora{--et-accent:#6482dc;--et-surface:#fcfdff;--et-soft:#e3e9ff;--et-text:#28355e;--et-muted:#7480a6;--et-line:#cfd7f4;--et-radius:26px;--et-shadow:0 12px 32px rgba(100,130,220,.16)}
+.exam-theme-academic{--et-accent:#364f70;--et-surface:#fffdf7;--et-soft:#eee5d4;--et-text:#292d36;--et-muted:#777166;--et-line:#ddd1b9;--et-radius:7px;--et-shadow:0 5px 16px rgba(41,45,54,.1)}
+.exam-theme-playful{--et-accent:#e27a70;--et-surface:#fffaf4;--et-soft:#ffe5d2;--et-text:#653b37;--et-muted:#98716a;--et-line:#f1cdb7;--et-radius:30px;--et-shadow:0 12px 25px rgba(226,122,112,.15)}
+.exam-theme-espresso{--et-accent:#9b6b48;--et-surface:#fffaf5;--et-soft:#eadbcd;--et-text:#3e2b20;--et-muted:#846c5b;--et-line:#ddc8b6;--et-radius:12px;--et-shadow:0 9px 22px rgba(62,43,32,.12)}
+.exam-theme-arctic{--et-accent:#3aafc6;--et-surface:#fbfeff;--et-soft:#d7f3f8;--et-text:#16404b;--et-muted:#618b94;--et-line:#bfe6ed;--et-radius:22px;--et-shadow:0 12px 26px rgba(58,175,198,.12)}
+/* distinct visual treatments */
+.exam-live.exam-theme-ocean .exam-question{border-right:6px solid var(--et-accent)}.exam-card.exam-theme-ocean{border-radius:18px 5px 18px 5px}
+.exam-live.exam-theme-lavender .exam-question{background:linear-gradient(145deg,var(--et-surface),var(--et-soft))}.exam-card.exam-theme-lavender{border-radius:28px}
+.exam-live.exam-theme-mint .exam-side{border-right:5px solid var(--et-accent)}.exam-card.exam-theme-mint{border-radius:15px;border-top-width:8px}
+.exam-live.exam-theme-sunset .exam-live-head{padding:12px;border-radius:14px;background:linear-gradient(110deg,var(--et-soft),var(--et-surface))}.exam-card.exam-theme-sunset{background:linear-gradient(145deg,var(--et-surface),var(--et-soft))}
+.exam-live.exam-theme-rose .exam-question{border-radius:28px}.exam-card.exam-theme-rose .exam-icon{border-radius:50%}
+.exam-live.exam-theme-midnight .exam-side,.exam-live.exam-theme-midnight .exam-question{background:#182944}.exam-theme-midnight .exam-clock{box-shadow:0 0 18px rgba(94,184,255,.2)}
+.exam-live.exam-theme-glass,.exam-card.exam-theme-glass,.exam-result.exam-theme-glass{backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}.exam-live.exam-theme-glass .exam-question,.exam-live.exam-theme-glass .exam-side{backdrop-filter:blur(12px)}
+.exam-live.exam-theme-paper .exam-question{background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 30px,rgba(139,107,69,.09) 31px)}.exam-card.exam-theme-paper{background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 28px,rgba(139,107,69,.06) 29px)}
+.exam-live.exam-theme-neon .exam-clock{box-shadow:0 0 16px color-mix(in srgb,var(--et-accent) 35%,transparent);text-shadow:0 0 8px var(--et-accent)}.exam-card.exam-theme-neon,.exam-live.exam-theme-neon{border-color:var(--et-accent);box-shadow:0 0 18px rgba(0,224,208,.12)}
+.exam-live.exam-theme-royal{border:3px double var(--et-accent)}.exam-card.exam-theme-royal{border:3px double var(--et-accent)}
+.exam-live.exam-theme-forest .exam-side{border-right:6px solid var(--et-accent)}.exam-card.exam-theme-forest{border-right:6px solid var(--et-accent)}
+.exam-live.exam-theme-coral .exam-question{border-bottom:5px solid var(--et-accent)}.exam-card.exam-theme-coral{border-radius:22px 22px 6px 22px}
+.exam-live.exam-theme-sky .exam-progress{height:11px;border-radius:20px}.exam-live.exam-theme-sky .exam-progress i{border-radius:20px}.exam-card.exam-theme-sky{background:linear-gradient(160deg,var(--et-surface),var(--et-soft))}
+.exam-live.exam-theme-mono .exam-icon,.exam-card.exam-theme-mono .exam-icon{filter:grayscale(1)}.exam-live.exam-theme-mono .exam-question{border-radius:4px}
+.exam-live.exam-theme-aurora .exam-live-head{border-radius:18px;padding:12px;background:linear-gradient(110deg,var(--et-soft),var(--et-surface))}.exam-card.exam-theme-aurora{background:linear-gradient(145deg,var(--et-surface),var(--et-soft))}
+.exam-live.exam-theme-academic h2,.exam-live.exam-theme-academic h3,.exam-card.exam-theme-academic h3,.exam-result.exam-theme-academic h2{font-family:Georgia,'Times New Roman',serif}.exam-live.exam-theme-academic .exam-question{border-radius:7px;border-top:3px solid var(--et-accent)}
+.exam-live.exam-theme-playful .exam-option{border-radius:25px}.exam-live.exam-theme-playful .btn,.exam-card.exam-theme-playful .btn{border-radius:30px}.exam-card.exam-theme-playful{transform:rotate(-.3deg)}
+.exam-live.exam-theme-espresso .exam-question{border-right:7px solid var(--et-accent)}.exam-card.exam-theme-espresso{border-right:6px solid var(--et-accent)}
+.exam-live.exam-theme-arctic .exam-clock{border-radius:30px}.exam-live.exam-theme-arctic .exam-option.selected{box-shadow:0 0 0 3px color-mix(in srgb,var(--et-accent) 14%,transparent)}
+.exam-theme-glass .exam-icon,.exam-theme-neon .exam-icon,.exam-theme-royal .exam-icon{background:var(--et-accent);color:#fff}
+@media(prefers-reduced-motion:no-preference){.exam-card[class*="exam-theme-"]{transition:transform .2s,box-shadow .2s}.exam-card[class*="exam-theme-"]:hover{transform:translateY(-4px)}}
+
+.exam-year{display:inline-block;padding:2px 11px;border-radius:30px;background:var(--et-surface,var(--card));border:1px solid var(--et-line,var(--line));color:var(--et-accent,var(--teal));font-size:.8rem;font-weight:800;line-height:1.7;white-space:nowrap}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+ <div class="brand">محرر الامتحانات <small>Eto · إدارة محتوى الاختبارات</small></div>
+ <label class="btn alt" for="load-file">استيراد ملف JSON</label><input id="load-file" type="file" accept=".json,application/json" hidden>
+ <button class="btn alt" id="export-json">تنزيل JSON</button>
+ <button class="btn" id="download-js">تنزيل exams.js</button>
+ <button class="btn alt" id="theme">الوضع الليلي</button>
+</div></header>
+<main class="wrap">
+ <div class="intro"><h1>محرر الامتحانات</h1><p>قائمة الامتحانات على اليسار، التعديل في المنتصف، والمعاينة المباشرة على اليمين.</p></div>
+ <div class="notice">الملف الحالي <b>Data/exams.js</b> بيتم تحميله تلقائيًا هنا. بعد التعديل اضغطي «تنزيل exams.js» واستبدلي به الملف القديم داخل مجلد Data.</div>
+ <div class="layout workspace">
+  <aside class="panel exams-sidebar" id="exam-list-panel">
+   <div class="list-head"><h2>الامتحانات</h2><button class="btn" id="add-exam">+ جديد</button></div>
+   <div class="exam-list" id="exam-list"></div>
+   <div class="help sidebar-help">اختار امتحان من هنا للتعديل.</div>
+  </aside>
+  <section class="panel editor-panel" id="editor-panel">
+   <div class="column-heading"><span>01</span><div><b>إعدادات ومحتوى الامتحان</b><small>البيانات والأسئلة والثيم</small></div></div>
+   <div id="exam-editor"></div>
+   <div class="raw-panel">
+    <details><summary>محرر JSON المتقدم (اختياري)</summary><p class="help">تقدر تعدّل البيانات الخام أو تلصق JSON كامل. اضغط «تطبيق JSON» للتحقق من البيانات وتحميلها في المحرر.</p><textarea class="json-area" id="raw-json" spellcheck="false"></textarea><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="btn alt" id="refresh-json">تحديث المعاينة</button><button class="btn" id="apply-json">تطبيق JSON</button></div></details>
+   </div>
+   <div class="status" id="status"></div>
+  </section>
+  <section class="preview-panel preview-column" id="preview-panel">
+   <div class="column-heading"><span>02</span><div><b>المعاينة المباشرة</b><small>شكل الامتحان قبل النشر</small></div></div>
+   <div class="preview-tabs" role="tablist">
+    <button type="button" class="preview-tab active" data-preview="card" aria-selected="true">الكارت</button>
+    <button type="button" class="preview-tab" data-preview="question" aria-selected="false">صفحة الحل</button>
+    <button type="button" class="preview-tab" data-preview="result" aria-selected="false">النتيجة</button>
+   </div>
+   <div class="preview-stage" id="exam-preview"></div>
+   <p class="preview-note">المعاينة بتتحدث تلقائيًا مع كل تعديل، وبتستخدم أول سؤال موجود.</p>
+  </section>
+ </div>
+</main>
+<div class="toast" id="toast"></div>
+<script src="Data/exams.js"></script>
+<script>
+(function(){
+'use strict';
+var $=function(s,r){return(r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var TYPES={mcq:'اختيار من متعدد',truefalse:'صح وغلط',short:'إجابة قصيرة',fill:'أكمل',matching:'توصيل',ordering:'ترتيب'};
+var THEMES=[
+{id:'classic',name:'الكلاسيكي',ac:'#0f766e',bg:'#f4f8fc',card:'#ffffff',soft:'#eef4fa',text:'#10263d'},
+{id:'ocean',name:'المحيط',ac:'#087ea4',bg:'#e8f7fc',card:'#f9fdff',soft:'#d9eff7',text:'#123547'},
+{id:'lavender',name:'لافندر',ac:'#7657c8',bg:'#f5f0ff',card:'#ffffff',soft:'#eae0ff',text:'#30234f'},
+{id:'mint',name:'النعناع',ac:'#15936b',bg:'#eefaf4',card:'#ffffff',soft:'#daf3e5',text:'#164b36'},
+{id:'sunset',name:'الغروب',ac:'#ed7c35',bg:'#fff4e9',card:'#fffaf4',soft:'#ffe6cf',text:'#633514'},
+{id:'rose',name:'روز',ac:'#cf5688',bg:'#fff1f5',card:'#fffafd',soft:'#fbe1ec',text:'#54243c'},
+{id:'midnight',name:'منتصف الليل',ac:'#5eb8ff',bg:'#101b32',card:'#182944',soft:'#213752',text:'#f0f6ff'},
+{id:'glass',name:'الزجاجي',ac:'#4f9fb1',bg:'#e3f0f2',card:'rgba(255,255,255,.78)',soft:'rgba(255,255,255,.48)',text:'#173b43'},
+{id:'paper',name:'الورقي',ac:'#8b6b45',bg:'#f3e8d2',card:'#fff8e9',soft:'#f0e1c5',text:'#49361f'},
+{id:'neon',name:'نيون',ac:'#00e0d0',bg:'#071014',card:'#101f25',soft:'#172e35',text:'#d8fff9'},
+{id:'royal',name:'ملكي',ac:'#8b67c8',bg:'#f3efff',card:'#fffefd',soft:'#e9e0ff',text:'#33244e'},
+{id:'forest',name:'الغابة',ac:'#35774b',bg:'#eaf3e9',card:'#f9fff7',soft:'#deeadb',text:'#1d3824'},
+{id:'coral',name:'كورال',ac:'#ef625e',bg:'#fff0ed',card:'#fffaf8',soft:'#ffe0d9',text:'#5c2b27'},
+{id:'sky',name:'السماء',ac:'#4296dd',bg:'#eef7ff',card:'#ffffff',soft:'#dceeff',text:'#183a5c'},
+{id:'mono',name:'أبيض وأسود',ac:'#555555',bg:'#f1f1f1',card:'#ffffff',soft:'#e5e5e5',text:'#222222'},
+{id:'aurora',name:'الشفق',ac:'#6482dc',bg:'#edf1ff',card:'#fcfdff',soft:'#e3e9ff',text:'#28355e'},
+{id:'academic',name:'أكاديمي',ac:'#364f70',bg:'#f5f0e5',card:'#fffdf7',soft:'#eee5d4',text:'#292d36'},
+{id:'playful',name:'مرح',ac:'#e27a70',bg:'#fff3e8',card:'#fffaf4',soft:'#ffe5d2',text:'#653b37'},
+{id:'espresso',name:'إسبريسو',ac:'#9b6b48',bg:'#f1e9e1',card:'#fffaf5',soft:'#eadbcd',text:'#3e2b20'},
+{id:'arctic',name:'جليدي',ac:'#3aafc6',bg:'#e9faff',card:'#fbfeff',soft:'#d7f3f8',text:'#16404b'}
+];
+var THEME_IDS=THEMES.map(function(t){return t.id});
+var data=Array.isArray(window.EXAMS)?JSON.parse(JSON.stringify(window.EXAMS)):[];
+var selected=data.length?data[0].id:null;
+var previewMode='card';
+function toast(s){var t=$('#toast');t.textContent=s;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(function(){t.style.display='none'},2500)}
+function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function nl(v){return esc(v).replace(/\n/g,'<br>')}
+function id(prefix){return prefix+'_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7)}
+function exam(){return data.find(function(x){return x.id===selected})}
+function persist(){try{localStorage.setItem('eto_exam_editor_draft',JSON.stringify(data));$('#status').textContent='تم حفظ التعديلات في هذه الصفحة.'}catch(e){$('#status').textContent='تعذر الحفظ التلقائي، نزّل الملف للاحتفاظ بالتعديلات.'}}
+function renderList(){var box=$('#exam-list');if(!data.length){box.innerHTML='<div class="empty">لا توجد امتحانات بعد.</div>';return}box.innerHTML=data.map(function(e){return'<button type="button" class="exam-choice '+(e.id===selected?'active':'')+'" data-select="'+esc(e.id)+'"><b>'+esc(e.title||'امتحان بدون اسم')+'</b><small>'+(e.questions||[]).length+' سؤال · '+(+e.duration||1)+' دقيقة</small></button>'}).join('')}
+function field(label,key,value,type,placeholder,full){var input=type==='textarea'?'<textarea data-exam-field="'+key+'" placeholder="'+esc(placeholder||'')+'">'+esc(value||'')+'</textarea>':'<input data-exam-field="'+key+'" type="'+(type||'text')+'" value="'+esc(value==null?'':value)+'" placeholder="'+esc(placeholder||'')+'">';return'<div class="field '+(full?'full':'')+'"><label>'+label+'</label>'+input+'</div>'}
+function selectField(label,key,value,options){return'<div class="field"><label>'+label+'</label><select data-exam-field="'+key+'">'+options.map(function(o){return'<option value="'+esc(o[0])+'" '+(String(value||'')===String(o[0])?'selected':'')+'>'+esc(o[1])+'</option>'}).join('')+'</select></div>'}
+function qField(label,key,value,type,placeholder,full){var input=type==='textarea'?'<textarea data-qfield="'+key+'" placeholder="'+esc(placeholder||'')+'">'+esc(value||'')+'</textarea>':'<input data-qfield="'+key+'" type="'+(type||'text')+'" value="'+esc(value==null?'':value)+'" placeholder="'+esc(placeholder||'')+'">';return'<div class="field '+(full?'full':'')+'"><label>'+label+'</label>'+input+'</div>'}
+function qSelectField(label,key,value,options){return'<div class="field"><label>'+label+'</label><select data-qfield="'+key+'">'+options.map(function(o){return'<option value="'+esc(o[0])+'" '+(String(value||'')===String(o[0])?'selected':'')+'>'+esc(o[1])+'</option>'}).join('')+'</select></div>'}
+function renderThemePicker(current){return'<div class="theme-picker">'+THEMES.map(function(t){return'<button type="button" class="theme-choice '+(current===t.id?'active':'')+'" data-theme-pick="'+t.id+'" title="'+esc(t.name)+'"><span class="theme-swatch" style="--sw-ac:'+t.ac+';--sw-bg:'+t.bg+';--sw-card:'+t.card+';--sw-soft:'+t.soft+';--sw-text:'+t.text+'"><i></i><b></b><small></small></span><strong>'+esc(t.name)+'</strong></button>'}).join('')+'</div>'}
+function lines(a){return Array.isArray(a)?a.join('\n'):''}
+function questionExtra(q){
+ if(q.type==='mcq'){
+  var opts=lines(q.options),ans=Number(q.answer)||0,select=(q.options||[]).map(function(x,i){return[i,'الاختيار '+(i+1)+': '+x]});
+  return'<div class="field full"><label>الاختيارات (كل اختيار في سطر)</label><textarea data-qfield="options">'+esc(opts)+'</textarea></div><div class="field"><label>الإجابة الصحيحة</label><select data-qfield="answer">'+select.map(function(o){return'<option value="'+o[0]+'" '+(ans===o[0]?'selected':'')+'>'+esc(o[1])+'</option>'}).join('')+'</select></div>';
+ }
+ if(q.type==='truefalse')return'<div class="field"><label>الإجابة الصحيحة</label><select data-qfield="answer"><option value="true" '+(q.answer===true?'selected':'')+'>صح</option><option value="false" '+(q.answer===false?'selected':'')+'>غلط</option></select></div>';
+ if(q.type==='short'||q.type==='fill')return'<div class="field full"><label>الإجابات المقبولة (كل إجابة في سطر)</label><textarea data-qfield="acceptedAnswers">'+esc(lines(q.acceptedAnswers))+'</textarea><p class="help">يتم تجاهل المسافات والتشكيل عند التصحيح، لكن باقي الإجابة لازم تطابق واحدة من الإجابات المقبولة.</p></div>';
+ if(q.type==='matching')return'<div class="field full"><label>الأزواج (كل سطر: الطرف الأول | الطرف الثاني)</label><textarea data-qfield="pairs">'+esc((q.pairs||[]).map(function(p){return p.left+' | '+p.right}).join('\n'))+'</textarea><p class="help">مثال: CO₂ | يعكّر ماء الجير</p></div>';
+ if(q.type==='ordering')return'<div class="field full"><label>الترتيب الصحيح (كل عنصر في سطر)</label><textarea data-qfield="items">'+esc(lines(q.items))+'</textarea><p class="help">الطالبة هتشوف العناصر بترتيب عشوائي، وتعيد ترتيبها بالسهمين.</p></div>';
+ return'';
+}
+function renderQuestions(e){return'<div class="question-list">'+(e.questions||[]).map(function(q,i){return'<article class="question-card" data-question="'+esc(q.id)+'"><div class="question-head"><b>السؤال '+(i+1)+'</b><select data-qfield="type">'+Object.keys(TYPES).map(function(t){return'<option value="'+t+'" '+(q.type===t?'selected':'')+'>'+TYPES[t]+'</option>'}).join('')+'</select><div class="q-actions"><button type="button" data-q-up="'+esc(q.id)+'" title="لأعلى">↑</button><button type="button" data-q-down="'+esc(q.id)+'" title="لأسفل">↓</button><button type="button" data-q-delete="'+esc(q.id)+'" title="حذف">حذف</button></div></div><div class="question-body"><div class="question-fields">'+
+ qField('نص السؤال','text',q.text,'textarea','اكتبي السؤال...',true)+qField('الدرجة','points',q.points,'number','1')+qField('سنة السؤال (اختياري)','year',q.year||'','text','مثال: مصر أول 22')+questionExtra(q)+qField('رابط صورة السؤال (اختياري)','image',q.image||'','text','https://...')+qField('وصف الصورة','imageAlt',q.imageAlt||'','text','وصف مختصر للصورة')+qField('شرح الإجابة بعد التسليم','explanation',q.explanation||'','textarea','شرح مختصر...',true)+qSelectField('شكل عرض السؤال','displayStyle',q.displayStyle,[['standard','عادي'],['highlight','مميز'],['compact','مضغوط']])+'</div></div></article>'}).join('')+'</div>'}
+function renderEditor(){var e=exam(),box=$('#exam-editor');if(!e){box.innerHTML='<div class="empty">اختار امتحان أو اضغط «+ امتحان» للبدء.</div>';renderPreview();return}
+ var prereq=[['','بدون شرط']].concat(data.filter(function(x){return x.id!==e.id}).map(function(x){return[x.id,x.title]}));
+ box.innerHTML='<div class="section-head"><h2>إعدادات الامتحان</h2><button type="button" class="btn danger" id="delete-exam">حذف الامتحان</button></div><div class="fields">'+
+ field('اسم الامتحان','title',e.title,'text','مثال: امتحان المحاضرة الأولى',true)+field('معرّف فريد (ID)','id',e.id,'text','exam_001')+
+ field('وصف مختصر','description',e.description,'textarea','محتوى الامتحان...',true)+field('الوقت بالدقائق','duration',e.duration,'number','30')+
+ field('درجة النجاح %','passMark',e.passMark,'number','50')+
+ '<div class="field full"><label>اختاري استايل الكارت وصفحة الامتحان (20 تصميم)</label>'+renderThemePicker(e.theme||'classic')+'</div>'+field('رمز الكارت','icon',e.icon||'✎','text','مثال: 1 أو ★')+
+ '<div class="field"><label>لا يفتح إلا بعد إنهاء</label><select data-exam-field="requiredExamId">'+prereq.map(function(o){return'<option value="'+esc(o[0])+'" '+(String(e.requiredExamId||'')===String(o[0])?'selected':'')+'>'+esc(o[1])+'</option>'}).join('')+'</select></div></div>'+
+ '<div class="checks"><label><input type="checkbox" data-exam-field="shuffleQuestions" '+(e.shuffleQuestions?'checked':'')+'> ترتيب الأسئلة عشوائي</label><label><input type="checkbox" data-exam-field="shuffleOptions" '+(e.shuffleOptions?'checked':'')+'> ترتيب الاختيارات عشوائي</label><label><input type="checkbox" data-exam-field="allowRetry" '+(e.allowRetry?'checked':'')+'> السماح بإعادة الامتحان</label><label><input type="checkbox" data-exam-field="showAnswers" '+(e.showAnswers?'checked':'')+'> إظهار التصحيح بعد التسليم</label><label><input type="checkbox" data-exam-field="showYear" '+(e.showYear?'checked':'')+'> إظهار سنة السؤال بجانب رقم السؤال</label></div>'+
+ '<div class="section"><div class="section-head"><h2>الأسئلة ('+(e.questions||[]).length+')</h2><button type="button" class="btn" id="add-question">+ إضافة سؤال</button></div>'+renderQuestions(e)+'</div>';
+ renderPreview();
+}
+function previewAnswer(q){
+ if(!q)return '<div class="preview-answer-placeholder">أضيفي سؤالًا لمعاينة طريقة عرض الإجابة.</div>';
+ if(q.type==='mcq')return '<div class="exam-options">'+(q.options||['اختيار أول','اختيار ثاني','اختيار ثالث']).slice(0,5).map(function(x,i){return '<label class="exam-option"><input type="radio" disabled><span>'+nl(x)+'</span></label>'}).join('')+'</div>';
+ if(q.type==='truefalse')return '<div class="exam-options two"><label class="exam-option"><input type="radio" disabled><span>صح</span></label><label class="exam-option"><input type="radio" disabled><span>غلط</span></label></div>';
+ if(q.type==='short'||q.type==='fill')return '<div class="preview-answer-placeholder">اكتبي إجابتك هنا...</div>';
+ if(q.type==='matching')return '<div class="exam-matching">'+(q.pairs||[{left:'الطرف الأول',right:'المطابقة الأولى'},{left:'الطرف الثاني',right:'المطابقة الثانية'}]).slice(0,4).map(function(p){return '<div class="exam-match-row"><span>'+esc(p.left)+'</span><span class="preview-answer-placeholder">اختاري المطابقة</span></div>'}).join('')+'</div>';
+ if(q.type==='ordering')return '<div class="exam-order-list">'+(q.items||['العنصر الأول','العنصر الثاني','العنصر الثالث']).slice(0,5).map(function(x,i){return '<div class="exam-order-item"><span>'+esc(x)+'</span><div><button type="button" disabled>↑</button><button type="button" disabled>↓</button></div></div>'}).join('')+'</div>';
+ return '<div class="preview-answer-placeholder">شكل الإجابة هيظهر هنا.</div>';
+}
+function renderPreview(){
+ var box=$('#exam-preview'),e=exam();
+ if(!box)return;
+ if(!e){box.innerHTML='<div class="empty">اختاري امتحانًا لمشاهدة المعاينة.</div>';return}
+ var theme=THEMES.find(function(t){return t.id===(e.theme||'classic')})||THEMES[0];
+ var accent=theme.ac;
+ var cls='exam-theme-'+theme.id;
+ var title=esc(e.title||'اسم الامتحان');
+ var description=esc(e.description||'وصف الامتحان هيظهر هنا');
+ var questions=e.questions||[];
+ var q=questions[0]||{text:'مثال على سؤال هيظهر للطالبة داخل الامتحان',type:'mcq',points:2,options:['الاختيار الأول','الاختيار الثاني','الاختيار الثالث','الاختيار الرابع']};
+ var total=questions.length||1;
+ var duration=Math.max(1,+e.duration||30);
+ var style=['soft','solid','outline','gradient'].indexOf(e.cardStyle)>-1?e.cardStyle:'soft';
+ var stage='background:'+theme.bg+';color:'+theme.text+';';
+ var html='';
+ if(previewMode==='card'){
+  html='<article class="exam-card '+cls+' '+style+'" style="--exam-ac:'+accent+'">'+
+   '<div class="exam-card-top"><span class="exam-icon">'+esc(e.icon||'✎')+'</span><span class="exam-status ready">متاح</span></div>'+
+   '<h3>'+title+'</h3><p>'+description+'</p>'+
+   '<div class="exam-meta"><span>'+total+' سؤال</span><span>'+duration+' دقيقة</span><span>'+Math.max(0,+e.passMark||0)+'% للنجاح</span></div>'+
+   '<div class="exam-card-action"><button type="button" class="btn exam-start">ابدئي الامتحان</button></div></article>';
+ }else if(previewMode==='question'){
+  var image=q.image?'<img class="exam-question-image" src="'+esc(q.image)+'" alt="'+esc(q.imageAlt||'صورة السؤال')+'">':'';
+  html='<section class="exam-live '+cls+'" style="--exam-ac:'+accent+'">'+
+   '<header class="exam-live-head"><div><span class="exam-live-kicker">'+title+'</span><h2>السؤال 1 من '+total+'</h2></div><div class="exam-clock">'+String(duration).padStart(2,'0')+':00</div></header>'+
+   '<div class="exam-progress"><i style="width:'+(total>1?Math.round(100/total):100)+'%"></i></div>'+
+   '<div class="exam-live-layout"><aside class="exam-side"><b>التنقل بين الأسئلة</b><div class="exam-nav">'+Array.from({length:Math.min(total,8)},function(_,i){return '<button type="button" class="exam-nav-dot '+(i===0?'current answered':'')+'">'+(i+1)+'</button>'}).join('')+'</div><p>تمت الإجابة عن 0 من '+total+'</p><button type="button" class="btn exam-submit-side">تسليم الامتحان</button></aside>'+
+   '<main class="exam-question '+(q.displayStyle==='highlight'?'highlight':q.displayStyle==='compact'?'compact':'')+'"><div class="exam-question-meta"><span>السؤال 1</span>'+(e.showYear&&q.year?'<span class="exam-year">'+esc(q.year)+'</span>':'')+'<span>'+Math.max(0,+q.points||1)+' درجة</span></div><h3>'+nl(q.text||'اكتبي نص السؤال هنا')+'</h3>'+image+
+   '<div class="exam-answer-area">'+previewAnswer(q)+'</div><div class="exam-question-actions"><button type="button" class="btn alt">السابق</button><button type="button" class="btn">السؤال التالي</button></div></main></div></section>';
+ }else{
+  html='<section class="exam-result '+cls+'" style="--exam-ac:'+accent+'"><div class="exam-result-mark pass">أحسنتِ!</div><h2>'+title+'</h2><div class="exam-score">85<small>%</small></div><p>درجتك 17 من 20 · حققتِ درجة النجاح</p>'+
+   '<div class="exam-review"><h3>مراجعة الإجابات</h3><article class="exam-review-item"><b class="review-ok">إجابة صحيحة · '+esc(q.text||'مثال على سؤال')+'</b><p>إجابتك: الاختيار الأول</p><p>الإجابة الصحيحة: '+esc(q.type==='mcq'?(q.options||['الاختيار الأول'])[Number(q.answer)||0]:'حسب نموذج الإجابة')+'</p><small>'+esc(q.explanation||'سيظهر شرح الإجابة هنا بعد التسليم.')+'</small></article></div><div class="exam-result-actions"><button type="button" class="btn">العودة للامتحانات</button><button type="button" class="btn alt">إعادة الامتحان</button></div></section>';
+ }
+ box.setAttribute('style',stage);
+ box.innerHTML=html;
+}
+$('#preview-panel').addEventListener('click',function(ev){var b=ev.target.closest('[data-preview]');if(!b)return;previewMode=b.dataset.preview;$$('[data-preview]',this).forEach(function(x){x.classList.toggle('active',x===b);x.setAttribute('aria-selected',x===b?'true':'false')});renderPreview()});
+function renderAll(){renderList();renderEditor();renderPreview();updateRaw()}
+function updateRaw(){$('#raw-json').value=JSON.stringify(data,null,2)}
+function addExam(){var e={id:id('exam'),title:'امتحان جديد',description:'',duration:30,passMark:50,cardStyle:'soft',theme:'classic',icon:'✎',shuffleQuestions:true,shuffleOptions:false,allowRetry:true,showAnswers:true,showYear:false,requiredExamId:'',questions:[]};data.push(e);selected=e.id;persist();renderAll()}
+function addQuestion(){var e=exam();if(!e)return;var q={id:id('q'),type:'mcq',text:'',points:1,options:['اختيار أول','اختيار ثاني','اختيار ثالث','اختيار رابع'],answer:0,explanation:'',year:'',displayStyle:'standard'};e.questions=e.questions||[];e.questions.push(q);persist();renderEditor();updateRaw()}
+function normalizeData(d){if(!Array.isArray(d))throw new Error('البيانات لازم تكون Array من الامتحانات.');var ids={};d.forEach(function(e,i){if(!e||typeof e!=='object')throw new Error('بيانات الامتحان رقم '+(i+1)+' غير صحيحة.');if(!e.id||!e.title)throw new Error('كل امتحان لازم يكون له id و title.');if(ids[e.id])throw new Error('فيه ID مكرر: '+e.id);ids[e.id]=true;if(!Array.isArray(e.questions))e.questions=[];var qids={};e.duration=Math.max(1,Number(e.duration)||30);e.showYear=!!e.showYear;e.passMark=Math.max(0,Math.min(100,Number(e.passMark)||0));if(THEME_IDS.indexOf(e.theme)<0)e.theme='classic';delete e.accent;e.questions.forEach(function(q,j){if(!q.id)q.id=id('q');if(q.year==null)q.year='';q.year=String(q.year);if(qids[q.id])throw new Error('معرّف سؤال مكرر داخل '+e.title+': '+q.id);qids[q.id]=true;if(!q.text)throw new Error('نص السؤال ناقص في '+e.title+'، السؤال '+(j+1));if(!q.type)q.type='mcq';if(['mcq','truefalse','short','fill','matching','ordering'].indexOf(q.type)<0)throw new Error('نوع سؤال غير معروف: '+q.type);if(q.type==='mcq'&&(!Array.isArray(q.options)||q.options.length<2||!Number.isInteger(Number(q.answer))||Number(q.answer)<0||Number(q.answer)>=q.options.length))throw new Error('سؤال الاختيار لازم يحتوي على اختيارين على الأقل وإجابة صحيحة من ضمن الاختيارات.');if(q.type==='mcq')q.answer=Number(q.answer);if(q.type==='truefalse'&&typeof q.answer!=='boolean')throw new Error('حدد إجابة صح أو غلط لسؤال '+q.text);if((q.type==='short'||q.type==='fill')&&(!Array.isArray(q.acceptedAnswers)||!q.acceptedAnswers.some(function(x){return String(x).trim()})))throw new Error('أضف إجابة مقبولة لسؤال '+q.text);if(q.type==='matching'&&(!Array.isArray(q.pairs)||q.pairs.length<2))throw new Error('سؤال التوصيل يحتاج زوجين على الأقل.');if(q.type==='ordering'&&(!Array.isArray(q.items)||q.items.length<2))throw new Error('سؤال الترتيب يحتاج عنصرين على الأقل.');});if(e.requiredExamId&&e.requiredExamId===e.id)throw new Error('الامتحان لا يمكن أن يكون شرطًا لفتح نفسه.');});var byId={};d.forEach(function(e){byId[e.id]=e});d.forEach(function(e){if(e.requiredExamId&&!ids[e.requiredExamId])throw new Error('شرط فتح غير موجود للامتحان '+e.title);var seen={},cur=e;while(cur&&cur.requiredExamId){if(seen[cur.id])throw new Error('فيه حلقة في شروط فتح الامتحانات تبدأ من '+e.title);seen[cur.id]=true;cur=byId[cur.requiredExamId]}});return d}
+function updateExamField(el){var e=exam();if(!e)return;var k=el.dataset.examField,v=el.type==='checkbox'?el.checked:el.value;if(k==='duration'||k==='passMark')v=Number(v);if(k==='passMark')v=Math.max(0,Math.min(100,v));e[k]=v;persist();if(k==='id'){selected=v;renderList()}if(k==='title'||k==='duration')renderList();updateRaw();renderPreview()}
+function parseQuestionField(el,q){var k=el.dataset.qfield,v=el.type==='checkbox'?el.checked:el.value;if(k==='points')v=Math.max(0,Number(v)||0);if(k==='answer'&&q.type==='mcq')v=Number(v);if(k==='answer'&&q.type==='truefalse')v=v==='true';if(k==='options'){v=v.split('\n').map(function(x){return x.trim()}).filter(Boolean);q.answer=Math.min(Number(q.answer)||0,Math.max(0,v.length-1))};if(k==='acceptedAnswers')v=v.split('\n').map(function(x){return x.trim()}).filter(Boolean);if(k==='pairs')v=v.split('\n').map(function(line){var a=line.split('|');return{left:(a.shift()||'').trim(),right:a.join('|').trim()}}).filter(function(p){return p.left&&p.right});if(k==='items')v=v.split('\n').map(function(x){return x.trim()}).filter(Boolean);q[k]=v;persist();updateRaw();renderPreview()}
+$('#add-exam').onclick=addExam;
+$('#exam-list').addEventListener('click',function(ev){var b=ev.target.closest('[data-select]');if(!b)return;selected=b.dataset.select;renderAll()});
+$('#exam-editor').addEventListener('input',function(ev){var el=ev.target;if(el.dataset.examField){updateExamField(el);return}var qel=el.closest('[data-question]'),q=qel&&exam().questions.find(function(x){return x.id===qel.dataset.question});if(q&&el.dataset.qfield&&el.dataset.qfield!=='type')parseQuestionField(el,q)});
+$('#exam-editor').addEventListener('change',function(ev){var el=ev.target;if(el.dataset.examField){updateExamField(el);return}var qel=el.closest('[data-question]'),e=exam(),q=qel&&e.questions.find(function(x){return x.id===qel.dataset.question});if(!q||!el.dataset.qfield)return;if(el.dataset.qfield==='type'){q.type=el.value;delete q.options;delete q.answer;delete q.acceptedAnswers;delete q.pairs;delete q.items;if(q.type==='mcq'){q.options=['اختيار أول','اختيار ثاني'];q.answer=0}else if(q.type==='truefalse')q.answer=true;else if(q.type==='short'||q.type==='fill')q.acceptedAnswers=[];else if(q.type==='matching')q.pairs=[{left:'طرف أول',right:'مطابقة أولى'},{left:'طرف ثانٍ',right:'مطابقة ثانية'}];else if(q.type==='ordering')q.items=['العنصر الأول','العنصر الثاني'];persist();renderEditor();updateRaw()}else{parseQuestionField(el,q);if(el.dataset.qfield==='options'){var card=qel;var old=card.querySelector('[data-qfield="answer"]');if(old){var selectedAnswer=Number(old.value)||0;old.innerHTML=(q.options||[]).map(function(x,i){return'<option value="'+i+'" '+(i===selectedAnswer?'selected':'')+'>الاختيار '+(i+1)+': '+esc(x)+'</option>'}).join('')}}}});
+$('#exam-editor').addEventListener('click',function(ev){var e=exam();if(!e)return;var pick=ev.target.closest('[data-theme-pick]');if(pick){e.theme=pick.dataset.themePick;persist();renderAll();return}if(ev.target.closest('#add-question')){addQuestion();return}if(ev.target.closest('#delete-exam')){if(confirm('متأكد من حذف الامتحان؟')){data=data.filter(function(x){return x.id!==e.id});selected=data.length?data[0].id:null;persist();renderAll()}return}var del=ev.target.closest('[data-q-delete]');if(del){e.questions=e.questions.filter(function(q){return q.id!==del.dataset.qDelete});persist();renderEditor();updateRaw();return}var up=ev.target.closest('[data-q-up]'),down=ev.target.closest('[data-q-down]');if(up||down){var bid=(up||down).dataset.qUp||(up||down).dataset.qDown,idx=e.questions.findIndex(function(q){return q.id===bid}),to=up?idx-1:idx+1;if(to>=0&&to<e.questions.length){var tmp=e.questions[idx];e.questions[idx]=e.questions[to];e.questions[to]=tmp;persist();renderEditor();updateRaw()}}});
+$('#load-file').addEventListener('change',function(ev){
+ var f=ev.target.files&&ev.target.files[0];
+ if(!f)return;
+
+ var reader=new FileReader();
+
+ reader.onload=function(){
+  try{
+   var raw=JSON.parse(String(reader.result).replace(/^\uFEFF/,''));
+   var candidate=JSON.parse(JSON.stringify(data));
+   var importedQuestions=null;
+   var addedExams=0;
+   var skipped=0;
+
+   function isQuestion(q){
+    return q&&typeof q==='object'&&
+    typeof q.text==='string'&&
+    Object.prototype.hasOwnProperty.call(TYPES,q.type);
+   }
+
+   if(Array.isArray(raw)&&raw.length&&raw.every(isQuestion)){
+    importedQuestions=raw;
+   }else if(raw&&Array.isArray(raw.questions)&&!raw.id&&!raw.title){
+    importedQuestions=raw.questions;
+   }else if(isQuestion(raw)){
+    importedQuestions=[raw];
+   }
+
+   if(importedQuestions){
+    var target=candidate.find(function(e){
+     return e.id===selected;
+    });
+
+    if(!target)throw new Error('اختار امتحان الأول لإضافة الأسئلة.');
+
+    var used={};
+    (target.questions||[]).forEach(function(q){
+     used[q.id]=true;
+    });
+
+    importedQuestions.forEach(function(q){
+     q=JSON.parse(JSON.stringify(q));
+     if(!q.id||used[q.id]){
+      q.id=id('q');
+     }
+     used[q.id]=true;
+     target.questions.push(q);
+    });
+
+    normalizeData(candidate);
+    data=candidate;
+    persist();
+    renderAll();
+    toast('تمت إضافة '+importedQuestions.length+' سؤال للامتحان بنجاح.');
+
+   }else{
+    var incoming=Array.isArray(raw)?raw:
+     raw&&Array.isArray(raw.exams)?raw.exams:
+     raw&&raw.exam?[raw.exam]:
+     raw&&raw.id?[raw]:null;
+
+    if(!incoming||!incoming.length){
+     throw new Error('ملف JSON لا يحتوي على امتحانات أو أسئلة صحيحة.');
+    }
+
+    var existing={};
+
+    candidate.forEach(function(e){
+     existing[e.id]=true;
+    });
+
+    incoming.forEach(function(e){
+     if(!e||typeof e!=='object'||!e.id||!e.title){
+      throw new Error('كل امتحان يجب أن يحتوي على id و title.');
+     }
+
+     if(existing[e.id]){
+      skipped++;
+      return;
+     }
+
+     candidate.push(JSON.parse(JSON.stringify(e)));
+     existing[e.id]=true;
+     addedExams++;
+    });
+
+    if(!addedExams){
+     throw new Error('كل الامتحانات الموجودة في الملف مضافة بالفعل.');
+    }
+
+    normalizeData(candidate);
+    data=candidate;
+    selected=candidate[candidate.length-1].id;
+    persist();
+    renderAll();
+
+    toast('تم استيراد '+addedExams+' امتحان. تم تجاهل '+skipped+' مكرر.');
+   }
+
+  }catch(e){
+   toast('خطأ في الاستيراد: '+e.message);
+  }
+ };
+
+ reader.onerror=function(){
+  toast('تعذر قراءة الملف.');
+ };
+
+ reader.readAsText(f,'UTF-8');
+ ev.target.value='';
+});
+$('#refresh-json').onclick=updateRaw;
+$('#apply-json').onclick=function(){try{data=normalizeData(JSON.parse($('#raw-json').value));selected=data.length?data[0].id:null;persist();renderAll();toast('تم تطبيق JSON بنجاح.')}catch(e){toast('خطأ في JSON: '+e.message)}};
+function download(name,content,type){var blob=new Blob([content],{type:type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},1000)}
+$('#download-js').onclick=function(){try{normalizeData(data);var content='window.EXAMS = '+JSON.stringify(data,null,2)+';\n';download('exams.js',content,'text/javascript;charset=utf-8');toast('تم تنزيل exams.js. استبدلي الملف داخل Data.')}catch(e){toast('راجعي البيانات: '+e.message)}};
+$('#export-json').onclick=function(){try{normalizeData(data);download('exams.json',JSON.stringify(data,null,2)+'\n','application/json;charset=utf-8')}catch(e){toast('راجعي البيانات: '+e.message)}};
+$('#theme').onclick=function(){document.body.classList.toggle('dark');try{localStorage.setItem('eto_exam_editor_theme',document.body.classList.contains('dark')?'dark':'light')}catch(e){}};
+try{if(localStorage.getItem('eto_exam_editor_theme')==='dark')document.body.classList.add('dark')}catch(e){}
+var draft=null;try{draft=localStorage.getItem('eto_exam_editor_draft')}catch(e){}if(draft){try{var parsed=JSON.parse(draft);if(Array.isArray(parsed)){data=parsed;selected=data.length?data[0].id:null}}catch(e){}}
+renderAll();
+})();
+</script>
+</body>
+</html>

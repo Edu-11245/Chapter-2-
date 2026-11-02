@@ -1428,7 +1428,7 @@ document.addEventListener('click',function(){setTimeout(fitFlips,80)});
 if(document.fonts)document.fonts.ready.then(fitFlips);
 
 
-/* PDF export: one exact 16:9 page per slide, with all teaching steps visible. */
+/* PDF export v2: each slide is rendered inside an isolated 1280x720 iframe (so phone/tablet layout, rotation and the live slide state can never leak into the PDF). Result / quiz-intro / closing slides are left out. */
 const pdfButton=document.getElementById('bPDF');
 function loadPdfLibrary(src,ready){
  if(ready())return Promise.resolve();
@@ -1437,13 +1437,15 @@ function loadPdfLibrary(src,ready){
  return new Promise(function(resolve,reject){const s=document.createElement('script');s.src=src;s.async=true;s.onload=resolve;s.onerror=reject;document.head.appendChild(s)})
 }
 function pdfYield(){return new Promise(function(resolve){setTimeout(resolve,0)})}
+function pdfSkipSlide(s){return !!(s.dataset.results||s.dataset.quizstart||s.dataset.title==='النهاية')}
 function cleanExportSlide(slide,index){
  slide.querySelectorAll('.st').forEach(function(el){el.classList.remove('st','on')});
  slide.querySelectorAll('[class]').forEach(function(el){
   [...el.classList].forEach(function(c){if(c.indexOf('animate__')===0)el.classList.remove(c)});
   el.style.removeProperty('animation-delay');el.style.removeProperty('animation-duration');
  });
- slide.querySelectorAll('.flipc').forEach(function(card){card.classList.remove('flipped');card.setAttribute('aria-pressed','false')});
+ slide.querySelectorAll('[data-rfs]').forEach(function(e){e.style.fontSize=e.dataset.rfs==='-'?'':e.dataset.rfs;e.removeAttribute('data-rfs')});
+ slide.querySelectorAll('.flipc').forEach(function(card){card.classList.remove('flipped');card.setAttribute('aria-pressed','false');card.style.height=''});
  // Print quiz answers and explanations in the PDF, without changing the live quiz.
  const title=slide.dataset.title||'';
  const qMatch=title.match(/^سؤال\s+(\d+)$/);
@@ -1463,12 +1465,7 @@ function cleanExportSlide(slide,index){
   const exp=slide.querySelector('.expl');
   if(exp){exp.style.display='block';exp.classList.remove('animate__animated','animate__fadeInUp');exp.innerHTML='<b class="gr">الإجابة الصحيحة: </b>'+fq(esc((options[right]||{}).textContent||''))+'<br>'+fq(esc(mini.dataset.ex||''))}
  }
- if(slide.dataset.results){
-  const rt=slide.querySelector('#ringTxt');if(rt)rt.textContent='—';
-  const msg=slide.querySelector('#resMsg');if(msg)msg.textContent='النتيجة تظهر بعد الانتهاء من الاختبار داخل الموقع.';
-  const ring=slide.querySelector('#ring');if(ring)ring.style.setProperty('--p',0);
- }
- // Remove fitting transforms left over from the currently displayed slide.
+ slide.querySelectorAll('.qh [id^=sc]').forEach(function(el){el.remove()});
  slide.querySelectorAll('.fit').forEach(function(f){f.style.setProperty('transform','none','important');f.style.setProperty('transform-origin','top center','important')});
 }
 function fitExportContent(slide){
@@ -1480,70 +1477,96 @@ function fitExportContent(slide){
   if(h>0&&el.scrollHeight>h+3)scale=Math.min(scale,h/el.scrollHeight);
   if(w>0&&el.scrollWidth>w+3)scale=Math.min(scale,w/el.scrollWidth);
  });
- // Scale the whole slide's content only when it would otherwise be clipped.
  if(scale<0.995)fit.style.setProperty('transform','scale('+Math.max(.35,scale)+')','important');
 }
+/* html2canvas can't draw some CSS (gradient text, blur, backdrop-filter, letter-spacing on Arabic), so the export copy swaps them for safe equivalents. */
+const PDF_EXPORT_CSS=`
+ html,body{margin:0!important;padding:0!important;width:1280px!important;height:720px!important;overflow:hidden!important;background:#0b1b30}
+ *{animation:none!important;transition:none!important;letter-spacing:0!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;caret-color:transparent}
+ .blob{display:none!important}
+ .stage{position:absolute!important;left:0!important;top:0!important;right:auto!important;bottom:auto!important;margin:0!important;width:1280px!important;height:720px!important;transform:none!important;zoom:1!important;border-radius:0!important;box-shadow:none!important;overflow:hidden!important}
+ .cover h1{background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;-webkit-text-fill-color:currentColor!important;color:var(--teal)!important}
+ .flipc{height:auto!important;min-height:0!important;perspective:none!important;cursor:default!important;overflow:visible!important}
+ .flipc .flip-inner{position:static!important;width:100%!important;height:auto!important;display:flex!important;flex-direction:column!important;gap:7px!important;transform:none!important;transform-style:flat!important}
+ .flipc .fa,.flipc .fb{position:relative!important;inset:auto!important;transform:none!important;backface-visibility:visible!important;min-height:58px!important;height:auto!important;padding:10px 12px!important;font-size:19px!important;line-height:1.4!important;overflow:visible!important}
+ .flipc .fa small{display:none!important}
+ .fit{overflow:visible!important}
+ .slide{overflow:hidden!important}
+`;
 async function exportSlidesToPDF(){
  if(pdfButton.disabled)return;
- const _cov=document.createElement('div');_cov.id='pdfcover';_cov.style.cssText='position:fixed;inset:0;z-index:999;background:#0b1b30;color:#fff;display:flex;align-items:center;justify-content:center;font:700 22px Cairo,Tahoma,sans-serif;text-align:center;padding:20px';_cov.textContent='جاري تجهيز ملف PDF… استنى لحظات';document.body.appendChild(_cov);
- document.documentElement.classList.remove('rf','rf1');
+ const _cov=document.createElement('div');_cov.id='pdfcover';_cov.style.cssText='position:fixed;inset:0;z-index:9999;background:#0b1b30;color:#fff;display:flex;flex-direction:column;gap:14px;align-items:center;justify-content:center;font:700 22px Cairo,Tahoma,sans-serif;text-align:center;padding:20px';
+ _cov.innerHTML='<div id="pdf-msg">جاري تجهيز ملف PDF...</div><div style="width:min(320px,80vw);height:12px;background:rgba(255,255,255,0.2);border-radius:6px;overflow:hidden"><div id="pdf-prog-bar" style="width:0%;height:100%;background:#19d3bd;transition:width 0.2s ease"></div></div><div id="pdf-prog-txt" style="font-size:16px;color:#9fb6d0">0%</div>';
+ document.body.appendChild(_cov);
  const oldLabel=pdfButton.innerHTML;
  pdfButton.disabled=true;pdfButton.textContent='تجهيز PDF...';
- let host=null,exportStage=null,exportCss=null;
+ let frame=null;
  try{
   await loadPdfLibrary('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js',function(){return typeof window.html2canvas==='function'});
   await loadPdfLibrary('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',function(){return !!(window.jspdf&&window.jspdf.jsPDF)});
   if(document.fonts&&document.fonts.ready)await document.fonts.ready;
-  host=document.createElement('div');host.id='pdf-export-host';
-  host.style.cssText='position:fixed!important;left:-1600px!important;top:0!important;width:1280px!important;height:720px!important;overflow:visible!important;z-index:-1000!important;pointer-events:none!important;contain:layout style;';
-  exportStage=stage.cloneNode(true);exportStage.id='pdf-export-stage';
-  exportStage.style.setProperty('position','relative','important');exportStage.style.setProperty('left','0','important');exportStage.style.setProperty('top','0','important');
-  exportStage.style.setProperty('right','auto','important');exportStage.style.setProperty('bottom','auto','important');exportStage.style.setProperty('margin','0','important');
-  exportStage.style.setProperty('width','1280px','important');exportStage.style.setProperty('height','720px','important');exportStage.style.setProperty('transform','none','important');
-  exportStage.style.setProperty('border-radius','0','important');exportStage.style.setProperty('overflow','hidden','important');
-  exportStage.querySelectorAll('.hud,.hint,.menu,.prog').forEach(function(el){el.remove()});
-  // Export flashcards as readable prompt/answer pairs instead of an animated flip.
-  exportCss=document.createElement('style');
-  exportCss.textContent=`
-   #pdf-export-host .flipc{height:auto!important;min-height:0!important;perspective:none!important;cursor:default!important;overflow:visible!important}
-   #pdf-export-host .flipc .flip-inner{position:static!important;width:100%!important;height:auto!important;display:flex!important;flex-direction:column!important;gap:7px!important;transform:none!important;transform-style:flat!important;transition:none!important}
-   #pdf-export-host .flipc .fa,#pdf-export-host .flipc .fb{position:relative!important;inset:auto!important;transform:none!important;backface-visibility:visible!important;min-height:58px!important;height:auto!important;padding:10px 12px!important;font-size:19px!important;line-height:1.4!important}
-   #pdf-export-host .flipc .fa small{display:none!important}
-   #pdf-export-host .slide{transition:none!important}
-   #pdf-export-host .blob{animation:none!important;filter:none!important}
-  `;
-  document.head.appendChild(exportCss);host.appendChild(exportStage);document.body.appendChild(host);
-  const exportSlides=[...exportStage.querySelectorAll('.slide')];
+  // 1) copy of the slides (never touches the live page)
+  const stageCopy=stage.cloneNode(true);
+  stageCopy.removeAttribute('id');stageCopy.removeAttribute('style');
+  stageCopy.querySelectorAll('.hud,.hint,.menu,.prog,#rot').forEach(function(el){el.remove()});
+  const allCopies=[...stageCopy.querySelectorAll('.slide')];
+  allCopies.forEach(function(s){if(pdfSkipSlide(s))s.remove()});
+  const exportSlides=[...stageCopy.querySelectorAll('.slide')];
+  exportSlides.forEach(function(s){s.classList.remove('active');s.style.removeProperty('display')});
+  // 2) isolated 1280x720 document with the same CSS but its own (desktop) viewport
+  const css=[...document.querySelectorAll('head style')].map(function(s){return s.outerHTML}).join('\n');
+  const links=[...document.querySelectorAll('head link[rel=stylesheet]')].map(function(l){return '<link rel="stylesheet" href="'+l.href+'">'}).join('\n');
+  const htmlCls=(document.documentElement.className||'').split(/\s+/).filter(function(c){return c&&c!=='rf'&&c!=='rf1'}).join(' ');
+  frame=document.createElement('iframe');
+  frame.setAttribute('aria-hidden','true');frame.tabIndex=-1;
+  frame.style.cssText='position:fixed;left:-3000px;top:0;width:1280px;height:720px;border:0;opacity:0;pointer-events:none;z-index:-1';
+  document.body.appendChild(frame);
+  await new Promise(function(resolve){
+   frame.onload=resolve;
+   frame.srcdoc='<!doctype html><html lang="ar" dir="rtl" class="'+htmlCls+'"><head><meta charset="utf-8">'+links+css+'<style>'+PDF_EXPORT_CSS+'</style></head><body class="'+document.body.className+'">'+stageCopy.outerHTML+'</body></html>';
+  });
+  const fdoc=frame.contentDocument,fwin=frame.contentWindow;
+  if(fdoc.fonts&&fdoc.fonts.ready)await fdoc.fonts.ready;
+  await new Promise(function(r){setTimeout(r,250)});
+  const fStage=fdoc.querySelector('.stage');
+  const fSlides=[...fStage.querySelectorAll('.slide')];
   const {jsPDF}=window.jspdf;
   const pdf=new jsPDF({orientation:'landscape',unit:'pt',format:[960,540],compress:true,putOnlyUsedFonts:true});
-  for(let i=0;i<exportSlides.length;i++){
-   const slide=exportSlides[i];
-   exportSlides.forEach(function(s,j){s.classList.toggle('active',i===j);s.style.setProperty('display',i===j?'flex':'none','important')});
+  const SC=(window.matchMedia&&matchMedia('(pointer:coarse)').matches)?1.5:2;
+  for(let i=0;i<fSlides.length;i++){
+   const slide=fSlides[i];
+   fSlides.forEach(function(s){s.classList.toggle('active',s===slide);s.style.removeProperty('display')});
    cleanExportSlide(slide,i);
    await pdfYield();
    fitExportContent(slide);
    await pdfYield();
-   const canvas=await window.html2canvas(exportStage,{scale:2,backgroundColor:null,useCORS:true,allowTaint:false,logging:false,width:1280,height:720,windowWidth:1280,windowHeight:720,scrollX:0,scrollY:0});
+   const canvas=await window.html2canvas(fStage,{scale:SC,backgroundColor:'#0b1b30',useCORS:true,allowTaint:false,logging:false,width:1280,height:720,windowWidth:1280,windowHeight:720,scrollX:0,scrollY:0});
    if(i>0)pdf.addPage([960,540],'landscape');
-   pdf.addImage(canvas.toDataURL('image/jpeg',0.93),'JPEG',0,0,960,540,undefined,'FAST');
+   pdf.addImage(canvas.toDataURL('image/jpeg',0.9),'JPEG',0,0,960,540,undefined,'FAST');
    canvas.width=1;canvas.height=1;
-   pdfButton.textContent='PDF '+(i+1)+'/'+exportSlides.length;
+   const pct=Math.round(((i+1)/fSlides.length)*100);
+   const bar=document.getElementById('pdf-prog-bar'), txt=document.getElementById('pdf-prog-txt'), msg=document.getElementById('pdf-msg');
+   if(bar) bar.style.width=pct+'%';
+   if(txt) txt.textContent=pct+'% ('+(i+1)+' من '+fSlides.length+')';
+   if(msg) msg.textContent='جاري تصدير الشريحة '+(i+1)+' من '+fSlides.length+'...';
+   pdfButton.textContent='PDF '+(i+1)+'/'+fSlides.length;
    await pdfYield();
   }
-  pdf.save('محاضرة-التحليل-الكيميائي.pdf');
+  pdf.save((document.title.replace(/[\\/:*?"<>|]/g,'').trim()||'lecture')+'.pdf');
   pdfButton.textContent='تم تجهيز PDF';
  }catch(err){
   console.error('PDF export failed:',err);
   alert('مقدرتش أجهز ملف PDF. اتأكد إن الإنترنت شغال وجرب تاني، لأن التحويل بيحمّل مكتبات PDF عند الطلب.');
   pdfButton.innerHTML=oldLabel;
  }finally{
-  _cov.remove();if(window.__rspLayout)window.__rspLayout();
-  if(host)host.remove();if(exportCss)exportCss.remove();
+  _cov.remove();
+  if(frame)frame.remove();
   pdfButton.disabled=false;
   if(pdfButton.textContent==='تم تجهيز PDF')setTimeout(function(){pdfButton.innerHTML=oldLabel},2200);
  }
 }
 pdfButton.addEventListener('click',function(e){e.stopPropagation();exportSlidesToPDF()});
+
 
 enter(0,false);
 /* ===== RSP v1: responsive layer (runs inside the lecture engine scope) ===== */
@@ -1683,5 +1706,6 @@ if(mh){const n=Math.max(1,Math.min(slides.length,+mh[1]));if(n>1)enter(n-1,false
 
 })();
 </script>
+<script src="lecture-reader.js"></script>
 </body>
 </html>
